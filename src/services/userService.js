@@ -8,4 +8,21 @@ const getAllUsers = () => {
   return axios.get("/api/v1/users");
 };
 
-export { handleLoginApi, getAllUsers };
+const getAUser = (id) => {
+  return axios.get(`/api/v1/user/?id=${id}`);
+};
+
+const createNewUserService = (data) => {
+  return axios.post("/api/v1/create-user", data);
+};
+
+const deleteUserService = (id) => {
+  return axios.delete("/api/v1/delete-user", { data: { id } });
+};
+export {
+  handleLoginApi,
+  getAllUsers,
+  getAUser,
+  createNewUserService,
+  deleteUserService,
+};
