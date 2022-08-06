@@ -14,9 +14,9 @@ import {
   Row,
   Col,
 } from "reactstrap";
-import { emitter } from "../../utils/emitter";
+import _ from "lodash"; // lib giúp xử lí trên mảng hoặc object hiệu quả (gần giống jquery)
 
-class ModalUser extends Component {
+class ModalEditUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -30,28 +30,40 @@ class ModalUser extends Component {
       roleId: "R1",
       isValid: false,
     };
-
-    this.listenToEmitter();
-  }
-
-  listenToEmitter() {
-    emitter.on("EVENT_CLEAR_MODAL_DATA", () => {
-      // reset state
-      this.setState({
-        email: "",
-        password: "",
-        firstName: "",
-        lastName: "",
-        address: "",
-        phoneNumber: "",
-        gender: "true",
-        roleId: "R1",
-        isValid: false,
-      });
-    });
   }
 
   componentDidMount() {}
+
+  componentDidUpdate(prevProps, prevState) {
+    let { currentUser } = this.props;
+    // Nó ko cho dùng lodash ở đây thì dùng === bình thường
+    // if (!_.isEqual(prevState, this.state)) {
+    if (prevState === this.state) {
+      if (currentUser && !_.isEmpty(currentUser)) {
+        let {
+          id,
+          email,
+          firstName,
+          lastName,
+          address,
+          phoneNumber,
+          gender,
+          roleId,
+        } = currentUser;
+        this.setState({
+          id,
+          email,
+          password: "hardcodepassword",
+          firstName,
+          lastName,
+          address,
+          phoneNumber,
+          gender,
+          roleId,
+        });
+      }
+    }
+  }
 
   toggle = () => {
     this.props.toggleFromParent();
@@ -99,11 +111,11 @@ class ModalUser extends Component {
     return isValid;
   };
 
-  handleAddNewUser = () => {
+  handleSaveUser = () => {
     let isValid = this.checkValidInput();
     if (isValid) {
-      // call api create new user
-      this.props.createNewUser(this.state);
+      // call api edit user modal
+      this.props.editUser(this.state);
     }
   };
 
@@ -123,7 +135,7 @@ class ModalUser extends Component {
               this.toggle();
             }}
           >
-            CREATE A NEW USER
+            EDIT A NEW USER
           </ModalHeader>
           <ModalBody className="px-4 pt-4 pb-5">
             <Container>
@@ -134,27 +146,16 @@ class ModalUser extends Component {
                       <Label for="exampleEmail" className="my-1">
                         Email
                       </Label>
-                      {this.state.isValid ? (
-                        <Input
-                          type="email"
-                          name="email"
-                          id="exampleEmail"
-                          placeholder="something@idk.cool"
-                          onChange={(e) => this.handleOnchange(e, "email")}
-                          value={this.state.email}
-                          valid
-                        />
-                      ) : (
-                        <Input
-                          type="email"
-                          name="email"
-                          id="exampleEmail"
-                          placeholder="something@idk.cool"
-                          onChange={(e) => this.handleOnchange(e, "email")}
-                          value={this.state.email}
-                          invalid
-                        />
-                      )}
+                      <Input
+                        type="email"
+                        name="email"
+                        id="exampleEmail"
+                        placeholder="something@idk.cool"
+                        onChange={(e) => this.handleOnchange(e, "email")}
+                        value={this.state.email}
+                        valid
+                        disabled
+                      />
                     </FormGroup>
                   </Col>
                   <Col xs="6">
@@ -169,6 +170,7 @@ class ModalUser extends Component {
                         placeholder="Password"
                         onChange={(e) => this.handleOnchange(e, "password")}
                         value={this.state.password}
+                        disabled
                       />
                     </FormGroup>
                   </Col>
@@ -287,10 +289,10 @@ class ModalUser extends Component {
               color="primary"
               className="px-3 mx-2"
               onClick={() => {
-                this.handleAddNewUser();
+                this.handleSaveUser();
               }}
             >
-              Add new user
+              Save changes
             </Button>{" "}
             <Button
               color="secondary"
@@ -316,4 +318,4 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ModalUser);
+export default connect(mapStateToProps, mapDispatchToProps)(ModalEditUser);
