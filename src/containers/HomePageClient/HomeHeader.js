@@ -8,10 +8,17 @@ import {
   brands,
 } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FormattedMessage } from "react-intl";
+import { LANGUAGES } from "../../utils";
+import { changeLanguageApp } from "../../store/actions";
 
 class HomeHeader extends Component {
+  changeLanguage = (language) => {
+    // fire redux event : actions
+    this.props.changeLanguageAppRedux(language);
+  };
+
   render() {
-    console.log(">>check props ", this.props);
+    let language = this.props.language;
     return (
       <>
         {/* <!-- Back to top button --> */}
@@ -39,8 +46,28 @@ class HomeHeader extends Component {
                 </div>
                 <div className="col-sm-4 text-right text-sm right-content">
                   <div className="languages">
-                    <div className="language-vi active">VN</div>
-                    <div className="language-en">EN</div>
+                    <div
+                      className={
+                        language === LANGUAGES.VI
+                          ? "language-vi active"
+                          : "language-vi"
+                      }
+                    >
+                      <span onClick={() => this.changeLanguage(LANGUAGES.VI)}>
+                        VN
+                      </span>
+                    </div>
+                    <div
+                      className={
+                        language === LANGUAGES.EN
+                          ? "language-en active"
+                          : "language-en"
+                      }
+                    >
+                      <span onClick={() => this.changeLanguage(LANGUAGES.EN)}>
+                        EN
+                      </span>
+                    </div>
                   </div>
                   <div className="social-mini-button">
                     <a href="/">
@@ -250,7 +277,9 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    changeLanguageAppRedux: (language) => dispatch(changeLanguageApp(language)),
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeHeader);

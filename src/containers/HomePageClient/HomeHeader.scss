@@ -84,20 +84,17 @@ header {
               margin-right: 4px;
               padding-right: 8px;
               &:hover {
-                color: #282f2d;
-              }
-              &:active {
-                color: #10dfa5;
+                color: #62b19a;
               }
             }
             .language-en {
               padding-left: 4px;
               &:hover {
-                color: #282f2d;
+                color: #62b19a;
               }
-              &:active {
-                color: #282f2d;
-              }
+            }
+            .active {
+              color: #14daa2;
             }
           }
         }
