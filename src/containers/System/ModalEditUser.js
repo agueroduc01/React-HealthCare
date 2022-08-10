@@ -139,17 +139,17 @@ class ModalEditUser extends Component {
           </ModalHeader>
           <ModalBody className="px-4 pt-4 pb-5">
             <Container>
-              <Form>
+              <Form id="form-1">
                 <Row className="my-3">
                   <Col xs="6">
-                    <FormGroup>
-                      <Label for="exampleEmail" className="my-1">
+                    <FormGroup className="form-group">
+                      <Label for="email" className="my-1">
                         Email
                       </Label>
                       <Input
                         type="email"
                         name="email"
-                        id="exampleEmail"
+                        id="email"
                         placeholder="something@idk.cool"
                         onChange={(e) => this.handleOnchange(e, "email")}
                         value={this.state.email}
@@ -160,13 +160,14 @@ class ModalEditUser extends Component {
                   </Col>
                   <Col xs="6">
                     <FormGroup>
-                      <Label for="examplePassword" className="my-1">
+                      <Label for="password" className="my-1">
                         Password
                       </Label>
                       <Input
                         type="password"
+                        autoComplete="on"
                         name="password"
-                        id="examplePassword"
+                        id="password"
                         placeholder="Password"
                         onChange={(e) => this.handleOnchange(e, "password")}
                         value={this.state.password}

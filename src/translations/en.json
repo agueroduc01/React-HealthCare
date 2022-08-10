@@ -1,4 +1,26 @@
 {
+    "home-header": {
+        "search": "Enter keywords",
+        "home": "Home",
+        "about-us": "About Us",
+        "doctors": "Doctors",
+        "news": "News",
+        "contact": "Contact",
+        "login-register": "Login / Register"
+    },
+    "banner": {
+        "title1": "Let's make your life happier",
+        "title2": "Healthy Living",
+        "consult": "Let's Consult",
+        "chat-w-doctor": "Chat with a doctors",
+        "protection": "One-Health Protection",
+        "pharmacy": "One-Health Pharmacy"
+    },
+    "about-us": {
+        "title": "Welcome to Your Health Center",
+        "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magnaaliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Accusantium aperiam earumipsa eius, inventore nemo labore eaque porro consequatur exaspernatur. Explicabo, excepturi accusantium! Placeatvoluptates esse ut optio facilis!",
+        "detail-us": "Learn More"
+    },
     "common": {
         "add": "Add",
         "edit": "Edit",

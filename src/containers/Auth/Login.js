@@ -37,15 +37,6 @@ class Login extends Component {
   };
 
   handleLogin = async () => {
-    // const { adminLoginSuccess } = this.props;
-    // //sucess
-    // let adminInfo = {
-    //     "tlid": "0",
-    //     "tlfullname": "Administrator",
-    //     "custype": "A",
-    //     "accessToken": "eyJhbGciOiJIU"
-    // }
-    // adminLoginSuccess(adminInfo);
     this.setState({
       errMessage: "",
     });
@@ -59,7 +50,7 @@ class Login extends Component {
       }
       if (data && data.errCode === 0) {
         // working at here
-        this.props.adminLoginSuccess(data.user);
+        this.props.userLoginSuccess(data.user);
         console.log("login success", data);
       }
     } catch (error) {
@@ -124,6 +115,7 @@ class Login extends Component {
                     <input
                       type={this.state.isShowPassword ? "text" : "password"}
                       id="form2Example28"
+                      autoComplete="on"
                       className="form-control form-control-lg"
                       value={this.state.password}
                       onChange={(e) => this.handleOnchangePassword(e)}
@@ -198,9 +190,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     navigate: (path) => dispatch(push(path)),
-    adminLoginSuccess: (adminInfo) =>
-      dispatch(actions.adminLoginSuccess(adminInfo)),
-    adminLoginFail: () => dispatch(actions.adminLoginFail()),
+    userLoginSuccess: (userInfo) =>
+      dispatch(actions.userLoginSuccess(userInfo)),
+    // userLoginFail: () => dispatch(actions.userLoginFail()),
   };
 };
 

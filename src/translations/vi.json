@@ -1,4 +1,26 @@
 {
+    "home-header": {
+        "search": "Nhập vào từ khóa",
+        "home": "Trang chủ",
+        "about-us": "Về chúng tôi",
+        "doctors": "Các bác sĩ",
+        "news": "Tin tức",
+        "contact": "Liên hệ",
+        "login-register": "Đăng Nhập / Đăng Ký"
+    },
+    "banner": {
+        "title1": "Giúp cuộc sống bạn hạnh phúc hơn",
+        "title2": "Lối sống lành mạnh",
+        "consult": "Hãy tham khảo",
+        "chat-w-doctor": "Nhắn tin ngay cho bác sĩ",
+        "protection": "Bảo vệ sức khỏe",
+        "pharmacy": "Hiệu thuốc"
+    },
+    "about-us": {
+        "title": "Chào mừng đến với trung tâm chăm sóc sức khỏe",
+        "description": "Chào mừng đến với trung tâm chăm sóc sức khỏe Chào mừng đến với trung tâm chăm sóc sức khỏe Chào mừng đến với trung tâm chăm sóc sức khỏe Chào mừng đến với trung tâm chăm sóc sức khỏe",
+        "detail-us": "Tìm hiểu thêm về chúng tôi"
+    },
     "common": {
         "add": "Thêm",
         "edit": "Sửa",
