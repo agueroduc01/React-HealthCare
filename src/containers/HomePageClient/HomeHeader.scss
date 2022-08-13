@@ -32,6 +32,10 @@ body {
 }
 
 header {
+  position: sticky;
+  background-color: #fff;
+  top: 0;
+  z-index: 10000;
   .topbar {
     border-bottom: 1px solid #e8eee4;
     .container {
@@ -364,9 +368,13 @@ header {
     position: relative;
     min-height: 1px;
     float: left;
+    display: none;
     // -webkit-backface-visibility: hidden;
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
+    &.active {
+      display: inline-block;
+    }
   }
   .card-doctor {
     display: block;
@@ -476,6 +484,9 @@ header {
           width: 36px;
           height: 36px;
         }
+      }
+      &:hover {
+        opacity: 0.8;
       }
     }
     button.owl-prev {

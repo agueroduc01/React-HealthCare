@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import HomeHeader from "./HomeHeader";
 import OurDoctors from "./Section/OurDoctors";
+// import AboutUs from "./Section/AboutUs";
 import HomeFooter from "./HomeFooter";
 class HomePage extends Component {
   render() {

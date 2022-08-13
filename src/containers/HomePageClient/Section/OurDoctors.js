@@ -8,6 +8,70 @@ import {
 } from "@fortawesome/fontawesome-svg-core/import.macro";
 
 class OurDoctors extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      slideIndex: 1,
+    };
+  }
+
+  componentDidMount() {
+    console.log("mounted", this.state);
+  }
+
+  handleSlideShow = async (n) => {
+    let slides = document
+      .querySelector(".owl-stage")
+      .querySelectorAll(".owl-item");
+    let i = 0;
+    let y = 0;
+
+    if (this.state.slideIndex === slides.length) {
+      console.log(">>end of slide");
+    }
+    this.setState(
+      {
+        slideIndex: this.state.slideIndex + n,
+      },
+      () => {
+        slides.forEach((slide) => {
+          if (slide.classList.contains("active")) {
+            slide.classList.remove("active");
+          }
+        });
+
+        if (this.state.slideIndex < 0) {
+          this.setState({ slideIndex: 0 });
+        }
+        if (this.state.slideIndex === slides.length - 2) {
+          this.setState({ slideIndex: -1 });
+        }
+        i = this.state.slideIndex;
+        if (i > 0) {
+          for (; i < slides.length; i++) {
+            if (y === 3) {
+              y = 0;
+              break;
+            }
+            slides[i].classList.add("active");
+            y++;
+          }
+        } else {
+          i = 0;
+          for (; i < slides.length; i++) {
+            if (y === 3) {
+              y = 0;
+              break;
+            }
+            slides[i].classList.add("active");
+            y++;
+          }
+        }
+        console.log("showSlides", this.state.slideIndex);
+      }
+    );
+  };
+
   render() {
     return (
       <>
@@ -58,12 +122,12 @@ class OurDoctors extends Component {
                           <div className="meta">
                             <a href="/">
                               <span>
-                                <i className="fa-solid fa-phone"></i>
+                                <FontAwesomeIcon icon={solid("phone")} />
                               </span>
                             </a>
                             <a href="/">
                               <span>
-                                <i className="fa-brands fa-whatsapp"></i>
+                                <FontAwesomeIcon icon={brands("whatsapp")} />
                               </span>
                             </a>
                           </div>
@@ -83,12 +147,12 @@ class OurDoctors extends Component {
                           <div className="meta">
                             <a href="/">
                               <span>
-                                <i className="fa-solid fa-phone"></i>
+                                <FontAwesomeIcon icon={solid("phone")} />
                               </span>
                             </a>
                             <a href="/">
                               <span>
-                                <i className="fa-brands fa-whatsapp"></i>
+                                <FontAwesomeIcon icon={brands("whatsapp")} />
                               </span>
                             </a>
                           </div>
@@ -110,12 +174,12 @@ class OurDoctors extends Component {
                           <div className="meta">
                             <a href="/">
                               <span>
-                                <i className="fa-solid fa-phone"></i>
+                                <FontAwesomeIcon icon={solid("phone")} />
                               </span>
                             </a>
                             <a href="/">
                               <span>
-                                <i className="fa-brands fa-whatsapp"></i>
+                                <FontAwesomeIcon icon={brands("whatsapp")} />
                               </span>
                             </a>
                           </div>
@@ -129,21 +193,52 @@ class OurDoctors extends Component {
                       </div>
                     </div>
                   </div>
+                  <div className="owl-item" style={{ width: "370px" }}>
+                    <div className="item">
+                      <div className="card-doctor">
+                        <div className="header">
+                          <img className="img-doctor3" alt="" />
+                          <div className="meta">
+                            <a href="/">
+                              <span>
+                                <FontAwesomeIcon icon={solid("phone")} />
+                              </span>
+                            </a>
+                            <a href="/">
+                              <span>
+                                <FontAwesomeIcon icon={brands("whatsapp")} />
+                              </span>
+                            </a>
+                          </div>
+                        </div>
+                        <div className="body">
+                          <p className="text-xl mb-0">Dr. Alexa Melvin</p>
+                          <span className="text-sm text-grey">Dental</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className="owl-nav">
                 <button
                   type="button"
                   role="presentation"
-                  className="owl-prev disabled"
+                  className="owl-prev"
+                  onClick={() => this.handleSlideShow(-1)}
                 >
                   <span>
-                    <i className="fa-solid fa-left">A</i>
+                    <FontAwesomeIcon icon={solid("arrow-left")} />
                   </span>
                 </button>
-                <button type="button" role="presentation" className="owl-next">
+                <button
+                  type="button"
+                  role="presentation"
+                  className="owl-next"
+                  onClick={() => this.handleSlideShow(1)}
+                >
                   <span>
-                    <i className="fa-solid fa-right">B</i>
+                    <FontAwesomeIcon icon={solid("arrow-right")} />
                   </span>
                 </button>
               </div>

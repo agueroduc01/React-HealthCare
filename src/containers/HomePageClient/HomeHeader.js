@@ -136,32 +136,32 @@ class HomeHeader extends Component {
               <div className="collapse navbar-collapse" id="navbarSupport">
                 <ul className="navbar-nav ml-auto">
                   <li className="nav-item active">
-                    <a className="nav-link" href="index.html">
+                    <a className="nav-link" href="/home">
                       <FormattedMessage id="home-header.home" />
                     </a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="about.html">
+                    <a className="nav-link" href="/about">
                       <FormattedMessage id="home-header.about-us" />
                     </a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="doctors.html">
+                    <a className="nav-link" href="/doctors">
                       <FormattedMessage id="home-header.doctors" />
                     </a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="blog.html">
+                    <a className="nav-link" href="/blog">
                       <FormattedMessage id="home-header.news" />
                     </a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="contact.html">
+                    <a className="nav-link" href="/contact">
                       <FormattedMessage id="home-header.contact" />
                     </a>
                   </li>
                   <li className="nav-item">
-                    <a className="btn btn-primary ml-lg-3" href="/">
+                    <a className="btn btn-primary ml-lg-3" href="/login">
                       <span>
                         {" "}
                         <FormattedMessage id="home-header.login-register" />
