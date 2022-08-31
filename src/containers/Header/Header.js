@@ -12,8 +12,14 @@ class Header extends Component {
   handleChangeLanguage = (language) => {
     this.props.changeLanguageAppRedux(language);
   };
+
+  handleLogOut = () => {
+    this.props.processLogout();
+    document.cookie = "token=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    console.log("check from log out(Header): da xoa cookie", document.cookie);
+  };
   render() {
-    const { processLogout, language, userInfo } = this.props;
+    const { language, userInfo } = this.props;
     return (
       <div className="header-container">
         {/* thanh navigator */}
@@ -49,7 +55,7 @@ class Header extends Component {
           {/* nút logout */}
           <div
             className="btn btn-logout"
-            onClick={processLogout}
+            onClick={() => this.handleLogOut()}
             title="Log out"
           >
             <i className="fas fa-sign-out-alt"></i>

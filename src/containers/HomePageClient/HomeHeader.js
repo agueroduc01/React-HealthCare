@@ -9,16 +9,28 @@ import {
 } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FormattedMessage } from "react-intl";
 import { LANGUAGES } from "../../utils";
-import { changeLanguageApp } from "../../store/actions";
+import { changeLanguageApp, processLogout } from "../../store/actions";
 
 class HomeHeader extends Component {
+  constructor(props) {
+    super(props);
+    // dang bi bug chuyen huong tu trang login sang home chua update component login/register
+    this.state = {
+      token: document.cookie || "",
+    };
+  }
   changeLanguage = (language) => {
     // fire redux event : actions
     this.props.changeLanguageAppRedux(language);
   };
+  handleLogOut = () => {
+    this.props.processLogout();
+    document.cookie = "token=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    console.log("check from log out(Header): da xoa cookie", document.cookie);
+  };
 
   render() {
-    let language = this.props.language;
+    let { language, isLoggedIn } = this.props;
     return (
       <>
         {/* <!-- Back to top button --> */}
@@ -111,13 +123,17 @@ class HomeHeader extends Component {
                       </span>
                     </span>
                   </div>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder={<FormattedMessage id="home-header.search" />}
-                    aria-label="Username"
-                    aria-describedby="icon-addon1"
-                  />
+                  <FormattedMessage id="home-header.search">
+                    {(placeholder) => (
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder={placeholder}
+                        aria-label="Username"
+                        aria-describedby="icon-addon1"
+                      />
+                    )}
+                  </FormattedMessage>
                 </div>
               </form>
 
@@ -160,14 +176,27 @@ class HomeHeader extends Component {
                       <FormattedMessage id="home-header.contact" />
                     </a>
                   </li>
-                  <li className="nav-item">
-                    <a className="btn btn-primary ml-lg-3" href="/login">
-                      <span>
-                        {" "}
-                        <FormattedMessage id="home-header.login-register" />
-                      </span>
-                    </a>
-                  </li>
+                  {/* Chua bat truong hop cookie het han se update lai component login/register */}
+                  {this.state.token && isLoggedIn ? (
+                    <li className="nav-item">
+                      <a href="/detail-user">Avatar</a>
+                      <div
+                        className="btn btn-logout"
+                        onClick={() => this.handleLogOut()}
+                        title="Log out"
+                      >
+                        <i className="fas fa-sign-out-alt"></i>
+                      </div>
+                    </li>
+                  ) : (
+                    <li className="nav-item">
+                      <a className="btn btn-primary ml-lg-3" href="/login">
+                        <span>
+                          <FormattedMessage id="home-header.login-register" />
+                        </span>
+                      </a>
+                    </li>
+                  )}
                 </ul>
               </div>
             </div>
@@ -278,6 +307,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    processLogout: () => dispatch(processLogout()),
     changeLanguageAppRedux: (language) => dispatch(changeLanguageApp(language)),
   };
 };

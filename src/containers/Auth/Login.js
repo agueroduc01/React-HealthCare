@@ -51,6 +51,11 @@ class Login extends Component {
       if (data && data.errCode === 0) {
         // working at here
         this.props.userLoginSuccess(data.user);
+        let now = new Date();
+        let time = now.getTime();
+        time += 3600 * 1000;
+        now.setTime(time);
+        document.cookie = `token=${data.token};expires=${now.toUTCString()}`;
         console.log("login success", data);
       }
     } catch (error) {
