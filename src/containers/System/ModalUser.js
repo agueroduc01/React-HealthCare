@@ -15,6 +15,9 @@ import {
   Col,
 } from "reactstrap";
 import { emitter } from "../../utils/emitter";
+import { FormattedMessage } from "react-intl";
+import { getAllCodeService } from "../../services/userService";
+import { LANGUAGES } from "../../utils";
 
 class ModalUser extends Component {
   constructor(props) {
@@ -26,9 +29,11 @@ class ModalUser extends Component {
       lastName: "",
       address: "",
       phoneNumber: "",
-      gender: "true",
-      roleId: "R1",
+      gender: "",
+      roleId: "",
       isValid: false,
+      arrGenders: [],
+      arrRoles: [],
     };
 
     this.listenToEmitter();
@@ -44,14 +49,38 @@ class ModalUser extends Component {
         lastName: "",
         address: "",
         phoneNumber: "",
-        gender: "true",
-        roleId: "R1",
+        gender: "",
+        roleId: "",
         isValid: false,
       });
     });
   }
 
-  componentDidMount() {}
+  async componentDidMount() {
+    try {
+      let res = await getAllCodeService("gender");
+      if (res && res.errCode === 0) {
+        this.setState({
+          ...this.state,
+          arrGenders: res.data,
+        });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+
+    try {
+      let res = await getAllCodeService("role");
+      if (res && res.errCode === 0) {
+        this.setState({
+          ...this.state,
+          arrRoles: res.data,
+        });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   toggle = () => {
     this.props.toggleFromParent();
@@ -108,6 +137,9 @@ class ModalUser extends Component {
   };
 
   render() {
+    let genderArr = this.state.arrGenders;
+    let roleArr = this.state.arrRoles;
+    let language = this.props.language;
     return (
       <div>
         <Modal
@@ -123,7 +155,7 @@ class ModalUser extends Component {
               this.toggle();
             }}
           >
-            CREATE A NEW USER
+            <FormattedMessage id="manage-user.add" />
           </ModalHeader>
           <ModalBody className="px-4 pt-4 pb-5">
             <Container>
@@ -132,7 +164,7 @@ class ModalUser extends Component {
                   <Col xs="6">
                     <FormGroup className="form-group">
                       <Label for="email" className="my-1">
-                        Email
+                        <FormattedMessage id="manage-user.email" />
                       </Label>
                       {this.state.isValid ? (
                         <Input
@@ -160,7 +192,7 @@ class ModalUser extends Component {
                   <Col xs="6">
                     <FormGroup>
                       <Label for="password" className="my-1">
-                        Password
+                        <FormattedMessage id="manage-user.password" />
                       </Label>
                       <Input
                         type="password"
@@ -178,7 +210,7 @@ class ModalUser extends Component {
                   <Col xs="6">
                     <FormGroup>
                       <Label for="firstName" className="my-1">
-                        First Name
+                        <FormattedMessage id="manage-user.first-name" />
                       </Label>
                       <Input
                         type="text"
@@ -193,7 +225,7 @@ class ModalUser extends Component {
                   <Col xs="6">
                     <FormGroup>
                       <Label for="examplePassword" className="my-1">
-                        Last Name
+                        <FormattedMessage id="manage-user.last-name" />
                       </Label>
                       <Input
                         type="text"
@@ -210,7 +242,7 @@ class ModalUser extends Component {
                   <Col>
                     <FormGroup>
                       <Label for="examplePassword" className="my-1">
-                        Address
+                        <FormattedMessage id="manage-user.address" />
                       </Label>
                       <Input
                         type="text"
@@ -227,7 +259,7 @@ class ModalUser extends Component {
                   <Col xs="6" sm="4">
                     <FormGroup>
                       <Label for="examplePassword" className="my-1">
-                        Phone Number
+                        <FormattedMessage id="manage-user.phone-number" />
                       </Label>
                       <Input
                         type="text"
@@ -242,40 +274,57 @@ class ModalUser extends Component {
 
                   <Col xs="6" sm="4">
                     <FormGroup>
-                      <Label for="sex" className="my-1">
-                        Sex
+                      <Label for="gender" className="my-1">
+                        <FormattedMessage id="manage-user.gender" />
                       </Label>
                       <Input
                         type="select"
                         name="select"
-                        id="sex"
+                        id="gender"
                         onChange={(e) => {
                           this.handleOnchange(e, "gender");
                         }}
                         value={this.state.gender}
                       >
-                        <option value="true">Male</option>
-                        <option value="false">Female</option>
+                        {genderArr &&
+                          genderArr.length > 0 &&
+                          genderArr.map((item, index) => {
+                            return (
+                              <option key={index} value={item.key}>
+                                {language === LANGUAGES.VI
+                                  ? item.valueVi
+                                  : item.valueEn}
+                              </option>
+                            );
+                          })}
                       </Input>
                     </FormGroup>
                   </Col>
                   <Col sm="4">
                     <FormGroup>
-                      <Label for="sex" className="my-1">
-                        Role
+                      <Label for="roleId" className="my-1">
+                        <FormattedMessage id="manage-user.roleId" />
                       </Label>
                       <Input
                         type="select"
                         name="select"
-                        id="role"
+                        id="roleId"
                         onChange={(e) => {
                           this.handleOnchange(e, "roleId");
                         }}
                         value={this.state.roleId}
                       >
-                        <option value="R1">Admin</option>
-                        <option value="R2">Doctor</option>
-                        <option value="R3">Patient</option>
+                        {roleArr &&
+                          roleArr.length > 0 &&
+                          roleArr.map((item, index) => {
+                            return (
+                              <option key={index} value={item.key}>
+                                {language === LANGUAGES.VI
+                                  ? item.valueVi
+                                  : item.valueEn}
+                              </option>
+                            );
+                          })}
                       </Input>
                     </FormGroup>
                   </Col>
@@ -310,7 +359,9 @@ class ModalUser extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    language: state.app.language,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {

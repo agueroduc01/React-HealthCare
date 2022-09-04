@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
+import {
+  connect,
+  // useDispatch
+} from "react-redux";
 import { push } from "connected-react-router";
-// import * as actions from "../store/actions";
 import * as actions from "../../store/actions";
 import "./Login.scss";
-// import { FormattedMessage } from 'react-intl';
 import { handleLoginApi } from "../../services/userService";
 
 class Login extends Component {
@@ -51,17 +52,13 @@ class Login extends Component {
       if (data && data.errCode === 0) {
         // working at here
         this.props.userLoginSuccess(data.user);
-        let now = new Date();
-        let time = now.getTime();
-        time += 3600 * 1000;
-        now.setTime(time);
-        document.cookie = `token=${data.token};expires=${now.toUTCString()}`;
         console.log("login success", data);
       }
     } catch (error) {
       if (error.response) {
         if (error.response.data) {
           console.log(error);
+          this.props.userLoginFail();
           this.setState({
             errMessage: error.response.data.message,
           });
@@ -197,7 +194,7 @@ const mapDispatchToProps = (dispatch) => {
     navigate: (path) => dispatch(push(path)),
     userLoginSuccess: (userInfo) =>
       dispatch(actions.userLoginSuccess(userInfo)),
-    // userLoginFail: () => dispatch(actions.userLoginFail()),
+    userLoginFail: () => dispatch(actions.userLoginFail()),
   };
 };
 

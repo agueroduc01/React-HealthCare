@@ -7,6 +7,7 @@ import { adminMenu } from "./menuApp";
 import "./Header.scss";
 import { LANGUAGES } from "../../utils";
 import { FormattedMessage } from "react-intl";
+import { handleLogoutApi } from "../../services/userService";
 
 class Header extends Component {
   handleChangeLanguage = (language) => {
@@ -15,8 +16,7 @@ class Header extends Component {
 
   handleLogOut = () => {
     this.props.processLogout();
-    document.cookie = "token=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
-    console.log("check from log out(Header): da xoa cookie", document.cookie);
+    handleLogoutApi(this.props.userInfo.accessToken);
   };
   render() {
     const { language, userInfo } = this.props;

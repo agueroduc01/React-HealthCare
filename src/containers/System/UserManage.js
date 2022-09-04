@@ -12,6 +12,8 @@ import {
 import ModalUser from "./ModalUser";
 import ModalEditUser from "./ModalEditUser";
 import { emitter } from "../../utils/emitter";
+import { toast } from "react-toastify";
+import { FormattedMessage } from "react-intl";
 
 class UserManage extends Component {
   constructor(props) {
@@ -25,11 +27,11 @@ class UserManage extends Component {
   }
 
   async componentDidMount() {
-    await this.getAllUsersFromReact();
+    await this.getAllUsersFromReact(this.props.userInfo.accessToken);
   }
 
-  getAllUsersFromReact = async () => {
-    let response = await getAllUsers();
+  getAllUsersFromReact = async (accessToken) => {
+    let response = await getAllUsers(accessToken);
     if (response && response.errCode === 0) {
       this.setState({
         arrUsers: response.data,
@@ -56,16 +58,18 @@ class UserManage extends Component {
       if (response && response.message.errCode !== 0) {
         alert(response.message.errMessage);
       } else {
-        await this.getAllUsersFromReact();
+        await this.getAllUsersFromReact(this.props.userInfo.accessToken);
         this.setState({
           isOpenModalUser: false,
         });
         // emitter.emit("EVENT_CLEAR_MODAL_DATA", { id: "1" });
+        toast.success("Create a new user successfully!");
         emitter.emit("EVENT_CLEAR_MODAL_DATA");
       }
       console.log(">>> createNewUser ", response);
     } catch (error) {
       console.log(error);
+      toast.error("Error from create a new user");
     }
   };
 
@@ -91,10 +95,12 @@ class UserManage extends Component {
       let response = await deleteUserService(user.id);
       if (response && response.errCode === 0) {
         console.log(response, user.id);
-        await this.getAllUsersFromReact();
+        await this.getAllUsersFromReact(this.props.userInfo.accessToken);
+        toast.success("Deleted a user successfully!");
       }
     } catch (error) {
       console.log(error);
+      toast.error("Error from delete a user");
     }
   };
 
@@ -112,9 +118,10 @@ class UserManage extends Component {
         this.setState({
           isOpenModalEditUser: false,
         });
-        await this.getAllUsersFromReact();
+        await this.getAllUsersFromReact(this.props.userInfo.accessToken);
+        toast.success("Edited a user successfully!");
       } else {
-        alert(response.message.message);
+        toast.error(response.message.message);
       }
     } catch (err) {
       console.error(err);
@@ -155,7 +162,7 @@ class UserManage extends Component {
             }}
           >
             <i className="fas fa-plus px-1"></i>
-            Add a new user
+            <FormattedMessage id="manage-user.add" />
           </button>
         </div>
         <div className="row mx-3">
@@ -163,10 +170,18 @@ class UserManage extends Component {
             <tbody>
               <tr>
                 <th>ID</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
-                <th>Address</th>
+                <th>
+                  <FormattedMessage id="manage-user.first-name" />
+                </th>
+                <th>
+                  <FormattedMessage id="manage-user.last-name" />
+                </th>
+                <th>
+                  <FormattedMessage id="manage-user.email" />
+                </th>
+                <th>
+                  <FormattedMessage id="manage-user.address" />
+                </th>
                 <th>Action</th>
               </tr>
 
@@ -218,7 +233,9 @@ class UserManage extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    userInfo: state.user.userInfo,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {

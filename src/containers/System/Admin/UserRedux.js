@@ -162,6 +162,19 @@ class UserRedux extends Component {
       positionId,
       image: avatar,
     });
+
+    this.setState({
+      email: "",
+      password: "",
+      firstName: "",
+      lastName: "",
+      phoneNumber: "",
+      address: "",
+      gender: "",
+      positionId: "",
+      roleId: "",
+      avatar: "",
+    });
   };
 
   render() {

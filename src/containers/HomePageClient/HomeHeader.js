@@ -10,27 +10,23 @@ import {
 import { FormattedMessage } from "react-intl";
 import { LANGUAGES } from "../../utils";
 import { changeLanguageApp, processLogout } from "../../store/actions";
+import { handleLogoutApi } from "../../services/userService";
 
 class HomeHeader extends Component {
-  constructor(props) {
-    super(props);
-    // dang bi bug chuyen huong tu trang login sang home chua update component login/register
-    this.state = {
-      token: document.cookie || "",
-    };
-  }
+  // dang bi bug chuyen huong tu trang login sang home chua update component login/register
   changeLanguage = (language) => {
     // fire redux event : actions
     this.props.changeLanguageAppRedux(language);
   };
   handleLogOut = () => {
     this.props.processLogout();
-    document.cookie = "token=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
-    console.log("check from log out(Header): da xoa cookie", document.cookie);
+    handleLogoutApi(this.props.userInfo.accessToken);
   };
 
   render() {
     let { language, isLoggedIn } = this.props;
+    let user = this.props.userInfo || "";
+    let accessToken = user.accessToken || "";
     return (
       <>
         {/* <!-- Back to top button --> */}
@@ -177,7 +173,7 @@ class HomeHeader extends Component {
                     </a>
                   </li>
                   {/* Chua bat truong hop cookie het han se update lai component login/register */}
-                  {this.state.token && isLoggedIn ? (
+                  {accessToken && isLoggedIn ? (
                     <li className="nav-item">
                       <a href="/detail-user">Avatar</a>
                       <div
@@ -302,6 +298,7 @@ const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.user.isLoggedIn,
     language: state.app.language,
+    userInfo: state.user.userInfo,
   };
 };
 

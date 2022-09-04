@@ -13,7 +13,6 @@ import Home from "../routes/Home";
 import Login from "./Auth/Login";
 import System from "../routes/System";
 import HomePage from "./HomePageClient/HomePage.js";
-import { CustomToastCloseButton } from "../components/CustomToast";
 import CustomScrollbars from "../components/CustomScrollbars";
 // import ConfirmModal from "../components/ConfirmModal";
 
@@ -59,16 +58,14 @@ class App extends Component {
             </div>
 
             <ToastContainer
-              className="toast-container"
-              toastClassName="toast-item"
-              bodyClassName="toast-item-body"
-              autoClose={false}
-              hideProgressBar={true}
-              pauseOnHover={false}
-              pauseOnFocusLoss={true}
-              closeOnClick={false}
-              draggable={false}
-              closeButton={<CustomToastCloseButton />}
+              autoClose={5000}
+              hideProgressBar={false}
+              pauseOnHover
+              pauseOnFocusLoss
+              closeOnClick
+              draggable
+              newestOnTop={false}
+              rtl={false}
             />
           </div>
         </Router>

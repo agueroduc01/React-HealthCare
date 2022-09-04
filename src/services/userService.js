@@ -4,8 +4,20 @@ const handleLoginApi = (email, password) => {
   return axios.post("/api/v1/login", { email, password });
 };
 
-const getAllUsers = () => {
-  return axios.get("/api/v1/users");
+const handleLogoutApi = (accessToken) => {
+  return axios.post(
+    "/api/v1/logout",
+    {},
+    {
+      headers: { authorization: `Bearer ${accessToken}` },
+    }
+  );
+};
+
+const getAllUsers = (accessToken) => {
+  return axios.get("/api/v1/users", {
+    headers: { authorization: `Bearer ${accessToken}` },
+  });
 };
 
 const getAUser = (id) => {
@@ -29,6 +41,7 @@ const getAllCodeService = (type) => {
 };
 export {
   handleLoginApi,
+  handleLogoutApi,
   getAllUsers,
   getAUser,
   createNewUserService,

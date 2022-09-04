@@ -3,10 +3,7 @@ import {
   getAllCodeService,
   createNewUserService,
 } from "../../services/userService";
-
-// export const fetchGenderStart = () => ({
-//   type: actionTypes.FETCH_GENDER_START,
-// });
+import { toast } from "react-toastify";
 
 export const fetchGenderStart = () => {
   return async (dispatch, getState) => {
@@ -102,8 +99,8 @@ export const createNewUser = (data) => {
   return async (dispatch, getState) => {
     try {
       let res = await createNewUserService(data);
-      console.log("check createNewUser", res);
       if (res && res.errCode === 0) {
+        toast.success("Created a new user successfully!");
         dispatch(saveUserSuccess());
       } else {
         dispatch(saveUserFailed());
@@ -111,6 +108,7 @@ export const createNewUser = (data) => {
     } catch (error) {
       dispatch(saveUserFailed());
       console.error("saveUserFailed ", error);
+      toast.error("Created failed");
     }
   };
 };
