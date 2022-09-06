@@ -38,7 +38,7 @@ class LatestNews extends Component {
                         <span>Roger Adams</span>
                       </div>
                       <span className="mx-1">
-                        <i class="fas fa-clock"></i> 1 week ago
+                        <i className="fas fa-clock"></i> 1 week ago
                       </span>
                     </div>
                   </div>
@@ -66,7 +66,7 @@ class LatestNews extends Component {
                         <span>Roger Adams</span>
                       </div>
                       <span className="mx-1">
-                        <i class="fas fa-clock"></i> 4 weeks ago
+                        <i className="fas fa-clock"></i> 4 weeks ago
                       </span>
                     </div>
                   </div>
@@ -94,7 +94,7 @@ class LatestNews extends Component {
                         <span>Diego Simmons</span>
                       </div>
                       <span className="mx-1">
-                        <i class="fas fa-clock"></i> 2 months ago
+                        <i className="fas fa-clock"></i> 2 months ago
                       </span>
                     </div>
                   </div>

@@ -24,16 +24,23 @@ const getAUser = (id) => {
   return axios.get(`/api/v1/user/?id=${id}`);
 };
 
-const createNewUserService = (data) => {
-  return axios.post("/api/v1/create-user", data);
+const createNewUserService = (data, accessToken) => {
+  return axios.post("/api/v1/create-user", data, {
+    headers: { authorization: `Bearer ${accessToken}` },
+  });
 };
 
-const deleteUserService = (id) => {
-  return axios.delete("/api/v1/delete-user", { data: { id } });
+const deleteUserService = (id, accessToken) => {
+  return axios.delete("/api/v1/delete-user", {
+    data: { id },
+    headers: { authorization: `Bearer ${accessToken}` },
+  });
 };
 
-const editUserService = (data) => {
-  return axios.put("/api/v1/update-user", data);
+const editUserService = (data, accessToken) => {
+  return axios.put("/api/v1/update-user", data, {
+    headers: { authorization: `Bearer ${accessToken}` },
+  });
 };
 
 const getAllCodeService = (type) => {

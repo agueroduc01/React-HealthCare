@@ -71,7 +71,7 @@ class TableManageUser extends Component {
                       <button
                         type="button"
                         className="btn-edit"
-                        //   onClick={() => this.handleEditUser(item)}
+                        onClick={() => this.props.handleEditUser(item)}
                       >
                         <i className="fas fa-pencil-alt"></i>
                       </button>
