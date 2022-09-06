@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { FormattedMessage } from "react-intl";
-import { LANGUAGES, CRUD_ACTIONS } from "../../../utils";
+import { LANGUAGES, CRUD_ACTIONS, CommonUtils } from "../../../utils";
 import * as actions from "../../../store/actions";
 import "./UserRedux.scss";
 import Lightbox from "react-image-lightbox";
@@ -39,18 +39,6 @@ class UserRedux extends Component {
     this.props.getGenderStart();
     this.props.getPositionStart();
     this.props.getRoleStart();
-
-    // call api trực tiếp
-    // try {
-    //   let res = await getAllCodeService("gender");
-    //   if (res && res.errCode === 0) {
-    //     this.setState({
-    //       genderArr: res.data,
-    //     });
-    //   }
-    // } catch (error) {
-    //   console.error(error);
-    // }
   }
 
   // mỗi khi đc render thì sẽ gọi đến hàm didUpdate
@@ -82,22 +70,29 @@ class UserRedux extends Component {
     }
 
     let imgBlock = document.querySelector(".img-upload");
-    if (!this.state.previewImgUrl) {
-      imgBlock.style.display = "none";
-      imgBlock.style.cursor = "default";
-    } else {
+    if (CRUD_ACTIONS.CREATE === this.state.action) {
+      if (prevState.previewImgUrl !== this.state.previewImgUrl) {
+        imgBlock.style.display = "block";
+        imgBlock.style.cursor = "pointer";
+      } else {
+        imgBlock.style.display = "none";
+        imgBlock.style.cursor = "default";
+      }
+    }
+    if (CRUD_ACTIONS.EDIT === this.state.action) {
       imgBlock.style.display = "block";
       imgBlock.style.cursor = "pointer";
     }
   }
-  handleOnchangeImage = (e) => {
+  handleOnchangeImage = async (e) => {
     let data = e.target.files;
     let file = data[0];
     if (file) {
+      let base64 = await CommonUtils.getBase64(file);
       let objectUrl = URL.createObjectURL(file);
       this.setState({
         previewImgUrl: objectUrl,
-        avatar: file,
+        avatar: base64,
       });
     }
   };
@@ -187,7 +182,7 @@ class UserRedux extends Component {
           gender,
           roleId,
           positionId,
-          // image: avatar,
+          image: avatar ? avatar : this.state.previewImgUrl,
         },
         // token của user đang đăng nhập để tạo 1 user khác
         this.props.userInfo.accessToken
@@ -214,6 +209,11 @@ class UserRedux extends Component {
   };
 
   handleEditUserFromParent = (user) => {
+    let imageBase64 = "";
+    if (user.image) {
+      imageBase64 = new Buffer(user.image, "base64").toString("binary");
+    }
+
     let {
       firstName,
       lastName,
@@ -236,6 +236,7 @@ class UserRedux extends Component {
       positionId,
       roleId,
       avatar: "",
+      previewImgUrl: imageBase64,
       action: CRUD_ACTIONS.EDIT,
       userEditId: id,
     });
