@@ -6,6 +6,7 @@ import * as actions from "../../../store/actions";
 import "./UserRedux.scss";
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
+import TableManageUser from "./TableManageUser";
 
 class UserRedux extends Component {
   constructor(props) {
@@ -149,20 +150,27 @@ class UserRedux extends Component {
       positionId,
       avatar,
     } = this.state;
+    console.log("create user", this.props.userInfo);
     //fire action redux
-    this.props.createNewUser({
-      firstName,
-      lastName,
-      email,
-      password,
-      address,
-      phoneNumber,
-      gender,
-      roleId,
-      positionId,
-      image: avatar,
-    });
+    this.props.createNewUser(
+      {
+        firstName,
+        lastName,
+        email,
+        password,
+        address,
+        phoneNumber,
+        gender,
+        roleId,
+        positionId,
+        image: avatar,
+      },
+      this.props.userInfo.accessToken
+    );
 
+    let arrRoles = this.props.roleRedux;
+    let arrGenders = this.props.genderRedux;
+    let arrPositions = this.props.positionRedux;
     this.setState({
       email: "",
       password: "",
@@ -170,9 +178,10 @@ class UserRedux extends Component {
       lastName: "",
       phoneNumber: "",
       address: "",
-      gender: "",
-      positionId: "",
-      roleId: "",
+      gender: arrGenders && arrGenders.length > 0 ? arrGenders[0].key : "",
+      positionId:
+        arrPositions && arrPositions.length > 0 ? arrPositions[0].key : "",
+      roleId: arrRoles && arrRoles.length > 0 ? arrRoles[0].key : "",
       avatar: "",
     });
   };
@@ -316,6 +325,7 @@ class UserRedux extends Component {
                     onChange={(e) => {
                       this.handleOnchangeInput(e, "gender");
                     }}
+                    value={this.state.gender}
                   >
                     {genderArr &&
                       genderArr.length > 0 &&
@@ -340,6 +350,7 @@ class UserRedux extends Component {
                     onChange={(e) => {
                       this.handleOnchangeInput(e, "positionId");
                     }}
+                    value={this.state.positionId}
                   >
                     {positionArr &&
                       positionArr.length > 0 &&
@@ -364,6 +375,7 @@ class UserRedux extends Component {
                     onChange={(e) => {
                       this.handleOnchangeInput(e, "roleId");
                     }}
+                    value={this.state.roleId}
                   >
                     {roleArr &&
                       roleArr.length > 0 &&
@@ -424,6 +436,8 @@ class UserRedux extends Component {
           </div>
         </div>
 
+        <TableManageUser />
+
         {this.state.isOpen && (
           <Lightbox
             mainSrc={this.state.previewImgUrl}
@@ -442,6 +456,7 @@ const mapStateToProps = (state) => {
     roleRedux: state.admin.roles,
     positionRedux: state.admin.positions,
     isLoadingGenders: state.admin.isLoadingGenders,
+    userInfo: state.user.userInfo,
   };
 };
 
@@ -450,7 +465,8 @@ const mapDispatchToProps = (dispatch) => {
     getGenderStart: () => dispatch(actions.fetchGenderStart()),
     getPositionStart: () => dispatch(actions.fetchPositionStart()),
     getRoleStart: () => dispatch(actions.fetchRoleStart()),
-    createNewUser: (data) => dispatch(actions.createNewUser(data)),
+    createNewUser: (data, accessToken) =>
+      dispatch(actions.createNewUser(data, accessToken)),
   };
 };
 

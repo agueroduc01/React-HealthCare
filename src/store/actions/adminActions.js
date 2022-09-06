@@ -2,6 +2,8 @@ import actionTypes from "./actionTypes";
 import {
   getAllCodeService,
   createNewUserService,
+  getAllUsers,
+  deleteUserService,
 } from "../../services/userService";
 import { toast } from "react-toastify";
 
@@ -95,15 +97,18 @@ export const fetchRoleFailed = () => ({
   type: actionTypes.FETCH_ROLE_FAILED,
 });
 
-export const createNewUser = (data) => {
+export const createNewUser = (data, accessToken) => {
   return async (dispatch, getState) => {
     try {
       let res = await createNewUserService(data);
-      if (res && res.errCode === 0) {
-        toast.success("Created a new user successfully!");
+      console.log("res", res);
+      if (res && res.message.errCode === 0) {
         dispatch(saveUserSuccess());
+        dispatch(fetchAllUsersStart(accessToken));
+        toast.success(res.message.errMessage);
       } else {
         dispatch(saveUserFailed());
+        toast.error("Created failed");
       }
     } catch (error) {
       dispatch(saveUserFailed());
@@ -119,4 +124,57 @@ export const saveUserSuccess = () => ({
 
 export const saveUserFailed = () => ({
   type: actionTypes.CREATE_USER_FAILED,
+});
+
+export const deleteAUser = (id, accessToken) => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await deleteUserService(id);
+      if (res && res.errCode === 0) {
+        dispatch(deleteUserSuccess());
+        dispatch(fetchAllUsersStart(accessToken));
+        toast.success(res.message);
+      } else {
+        dispatch(deleteUserFailed());
+        toast.error("deleteUserFailed");
+      }
+    } catch (error) {
+      dispatch(deleteUserFailed());
+      console.error("deleteUserFailed ", error);
+      toast.error("deleteUserFailed");
+    }
+  };
+};
+
+export const deleteUserSuccess = () => ({
+  type: actionTypes.DELETE_USER_SUCCESS,
+});
+
+export const deleteUserFailed = () => ({
+  type: actionTypes.DELETE_USER_FAILED,
+});
+
+export const fetchAllUsersStart = (accessToken) => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await getAllUsers(accessToken);
+      if (res && res.errCode === 0) {
+        dispatch(fetchAllUsersSuccess(res.data.reverse()));
+      } else {
+        dispatch(fetchAllUsersFailed());
+      }
+    } catch (error) {
+      dispatch(fetchAllUsersFailed());
+      console.error("fetchAllUsersStart failed", error);
+    }
+  };
+};
+
+export const fetchAllUsersSuccess = (data) => ({
+  type: actionTypes.FETCH_ALL_USERS_SUCCESS,
+  users: data,
+});
+
+export const fetchAllUsersFailed = () => ({
+  type: actionTypes.FETCH_ALL_USERS_FAILED,
 });
