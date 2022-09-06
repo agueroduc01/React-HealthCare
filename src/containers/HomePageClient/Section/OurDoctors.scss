@@ -1,0 +1,185 @@
+// Our doctors
+.owl-carousel {
+  display: block;
+  width: 100%;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+  z-index: 1;
+  .owl-stage-outer {
+    position: relative;
+    overflow: hidden;
+    -webkit-transform: translate3d(0px, 0px, 0px);
+    transform: translate3d(0px, 0px, 0px);
+  }
+  .owl-stage {
+    position: relative;
+    -ms-touch-action: pan-Y;
+    touch-action: manipulation;
+    // -moz-backface-visibility: hidden;
+  }
+  .owl-item {
+    position: relative;
+    min-height: 1px;
+    float: left;
+    display: none;
+    // -webkit-backface-visibility: hidden;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    &.active {
+      display: inline-block;
+    }
+  }
+  .card-doctor {
+    display: block;
+    margin: 15px auto;
+    width: 100%;
+    max-width: 240px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(154, 159, 151, 0.2);
+    overflow: hidden;
+    .header {
+      position: relative;
+      width: 100%;
+      height: 260px;
+      overflow: hidden;
+      &:hover {
+        cursor: pointer;
+        opacity: 0.9;
+        .meta {
+          visibility: visible;
+          opacity: 1;
+        }
+      }
+      .meta {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        width: 100px;
+        height: 46px;
+        visibility: hidden;
+        opacity: 0;
+        transition: all 0.2s ease;
+        a {
+          display: inline-block;
+          margin: 3px;
+          width: 40px;
+          height: 40px;
+          line-height: 40px;
+          border-radius: 50%;
+          text-align: center;
+          background-color: #fff;
+          color: #6e807a;
+          box-shadow: 0 4px 8px rgba(154, 159, 151, 0.6);
+          transition: all 0.2s ease;
+          text-decoration: none;
+          &:hover {
+            color: rgb(0, 217, 165);
+          }
+        }
+      }
+    }
+    .header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(52, 53, 49, 0.36);
+      opacity: 0;
+      transition: opacity 0.2s linear;
+    }
+    .img-doctor1 {
+      background: url("../../../assets/img/doctors/doctor_1.jpg");
+      width: 100%;
+      height: 100%;
+      border-style: none;
+      background-size: cover;
+    }
+    .img-doctor2 {
+      background: url("../../../assets/img/doctors/doctor_2.jpg");
+      width: 100%;
+      height: 100%;
+      border-style: none;
+      background-size: cover;
+    }
+    .img-doctor3 {
+      background: url("../../../assets/img/doctors/doctor_3.jpg");
+      width: 100%;
+      height: 100%;
+      border-style: none;
+      background-size: cover;
+    }
+    .body {
+      padding: 15px 20px;
+    }
+    .text-xl {
+      font-weight: 500;
+      font-size: 20px !important;
+    }
+    .text-sm {
+      font-size: 14px !important;
+    }
+  }
+  .owl-stage:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+  }
+  .owl-nav {
+    display: block;
+    margin: 14px auto;
+    text-align: center;
+    min-height: 36px;
+    button {
+      width: 36px;
+      height: 36px;
+      border: none;
+      span {
+        width: 36px;
+        height: 36px;
+        i {
+          width: 36px;
+          height: 36px;
+        }
+      }
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+    button.owl-prev {
+      padding-right: 7px !important;
+      padding-left: 14px !important;
+      border-radius: 40px 0 0 40px;
+    }
+    button.owl-prev,
+    button.owl-next {
+      display: inline-block;
+      padding: 6px 0 !important;
+      background-color: #00d9a5;
+      color: #fff;
+    }
+    button.owl-next {
+      padding-right: 14px !important;
+      padding-left: 7px !important;
+      border-radius: 0 40px 40px 0;
+    }
+  }
+}
+.mt--44px {
+  margin-top: -44px;
+  .btn {
+    margin-left: 8px;
+  }
+}
+#doctorSlideshow {
+  .owl-nav {
+    margin-top: 24px;
+  }
+}

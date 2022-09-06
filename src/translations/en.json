@@ -22,6 +22,24 @@
         "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magnaaliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Accusantium aperiam earumipsa eius, inventore nemo labore eaque porro consequatur exaspernatur. Explicabo, excepturi accusantium! Placeatvoluptates esse ut optio facilis!",
         "detail-us": "Learn More"
     },
+    "our-doctors":{
+        "title": "Our Doctors"
+    },
+    "specialty": {
+        "cardiology": "Cardiology",
+        "dental": "Dental",
+        "general-health": "General Health",
+        "neurology": "Neurology",
+        "orthopaedics": "Orthopaedics"
+    },
+    "make-appointment":{
+        "title": "Make An Appointment",
+        "full-name": "Full Name",
+        "email": "Email Address...",
+        "phone": "Phone Number",
+        "message": "Enter message",
+        "submit": "Submit Request"
+    },
     "menu": {
         "admin": {
             "manage-user": "Users",

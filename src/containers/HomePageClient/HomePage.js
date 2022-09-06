@@ -1,16 +1,25 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import HomeHeader from "./HomeHeader";
+import HomeHeader from "./Partials/HomeHeader";
 import OurDoctors from "./Section/OurDoctors";
-// import AboutUs from "./Section/AboutUs";
-import HomeFooter from "./HomeFooter";
+import BackgroundMainOverlay from "./Section/BackgroundMainOverlay";
+import AboutUs from "./Section/AboutUs";
+import LatestNews from "./Section/LatestNews";
+import MakeAnAppointment from "./Section/MakeAnAppointment";
+import BannerPattern from "./Section/BannerPattern";
+import HomeFooter from "./Partials/HomeFooter";
 class HomePage extends Component {
   render() {
     return (
       <>
         <div>
           <HomeHeader />
+          <BackgroundMainOverlay />
+          <AboutUs />
           <OurDoctors />
+          <LatestNews />
+          <MakeAnAppointment />
+          <BannerPattern />
           <HomeFooter />
         </div>
       </>

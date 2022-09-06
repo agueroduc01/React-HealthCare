@@ -1,0 +1,42 @@
+// BANNER PATTERN
+.banner-home {
+  padding: 0;
+  background-color: #00d9a5;
+  color: #fff;
+  min-height: 347px;
+  .img-banner {
+    display: block;
+    max-width: 200px;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+    .img_mobile_app {
+      background-image: url("../../../assets/img/mobile_app.png");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      width: 100%;
+      height: 297px;
+    }
+  }
+  .font-weight-normal {
+    font-weight: 400 !important;
+  }
+  .img_google_play {
+    background-image: url("../../../assets/img/google_play.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 192px;
+    height: 56px;
+  }
+  .img_app_store {
+    background-image: url("../../../assets/img/app_store.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 192px;
+    height: 56px;
+  }
+}

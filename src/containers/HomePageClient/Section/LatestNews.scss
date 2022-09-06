@@ -1,0 +1,129 @@
+// LATEST NEWS
+.card-blog {
+  position: relative;
+  display: block;
+  max-width: 264px;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 4px;
+  border: 1px solid #e5e5e5;
+  overflow: hidden;
+  .header {
+    width: 100%;
+    height: 140px;
+    background-color: #9a9f97;
+    overflow: hidden;
+    .blog-1 {
+      background: url("../../../assets/img/blog/blog_1.jpg");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      min-height: 140px;
+    }
+    .blog-2 {
+      background: url("../../../assets/img/blog/blog_2.jpg");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      min-height: 140px;
+    }
+    .blog-3 {
+      background: url("../../../assets/img/blog/blog_3.jpg");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      min-height: 140px;
+    }
+    .post-thumb {
+      position: relative;
+      overflow: hidden;
+      img {
+        width: 100%;
+        transition: transform 0.2s linear;
+      }
+      a {
+        color: #07be94;
+        text-decoration: none;
+        background-color: transparent;
+      }
+    }
+    .post-category {
+      position: absolute;
+      top: 15px;
+      left: 20px;
+      z-index: 9;
+      a {
+        display: inline-block;
+        padding: 4px 8px;
+        font-size: 12px;
+        background-color: #4e5afe;
+        color: #fff;
+        border-radius: 40px;
+        text-decoration: none;
+      }
+    }
+  }
+  .body {
+    padding: 15px 20px;
+    .post-title a {
+      text-decoration: none;
+      color: #343531;
+      font-size: 1.3rem;
+    }
+    .site-info {
+      margin-top: 12px;
+      font-size: 12px;
+      color: #6d7170;
+      .avatar {
+        display: inline-flex;
+        flex-direction: row;
+        align-items: center;
+        .avatar-img1 {
+          margin-right: 6px;
+          width: 28px;
+          height: 28px;
+          background: url("../../../assets/img/person/person_1.jpg");
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          border-radius: 50%;
+        }
+        .avatar-img2 {
+          margin-right: 6px;
+          width: 28px;
+          height: 28px;
+          background: url("../../../assets/img/person/person_2.jpg");
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          border-radius: 50%;
+        }
+        .avatar-img3 {
+          margin-right: 6px;
+          width: 28px;
+          height: 28px;
+          background: url("../../../assets/img/person/person_3.jpg");
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+}
+.row.mt-5 {
+  .col-12.text-center.mt-4 {
+    a.btn {
+      padding: 8px 24px;
+      height: 42px;
+      font-size: 1.2rem;
+    }
+  }
+}
+.mr-2 {
+  margin-right: 0.5rem !important;
+}
+.ml-2 {
+  margin-left: 0.75rem !important;
+}

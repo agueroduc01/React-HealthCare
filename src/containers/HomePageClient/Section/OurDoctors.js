@@ -6,6 +6,8 @@ import {
   // regular,
   brands,
 } from "@fortawesome/fontawesome-svg-core/import.macro";
+import "./OurDoctors.scss";
+import { FormattedMessage } from "react-intl";
 
 class OurDoctors extends Component {
   constructor(props) {
@@ -77,7 +79,9 @@ class OurDoctors extends Component {
       <>
         <div className="page-section">
           <div className="container">
-            <h1 className="text-center mb-5">Our Doctors</h1>
+            <h1 className="text-center mb-5">
+              <FormattedMessage id="our-doctors.title" />
+            </h1>
 
             <div className="owl-carousel" id="doctorSlideshow">
               <div className="owl-stage-outer">
@@ -109,7 +113,9 @@ class OurDoctors extends Component {
                         </div>
                         <div className="body">
                           <p className="text-xl mb-0">Dr. Stein Albert</p>
-                          <span className="text-sm text-grey">Cardiology</span>
+                          <span className="text-sm text-grey">
+                            <FormattedMessage id="specialty.cardiology" />
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -134,7 +140,9 @@ class OurDoctors extends Component {
                         </div>
                         <div className="body">
                           <p className="text-xl mb-0">Dr. Alexa Melvin</p>
-                          <span className="text-sm text-grey">Dental</span>
+                          <span className="text-sm text-grey">
+                            <FormattedMessage id="specialty.dental" />
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -160,7 +168,7 @@ class OurDoctors extends Component {
                         <div className="body">
                           <p className="text-xl mb-0">Dr. Rebecca Steffany</p>
                           <span className="text-sm text-grey">
-                            General Health
+                            <FormattedMessage id="specialty.general-health" />
                           </span>
                         </div>
                       </div>
@@ -187,7 +195,7 @@ class OurDoctors extends Component {
                         <div className="body">
                           <p className="text-xl mb-0">Dr. Rebecca Steffany</p>
                           <span className="text-sm text-grey">
-                            General Health
+                            <FormattedMessage id="specialty.general-health" />
                           </span>
                         </div>
                       </div>
@@ -213,7 +221,9 @@ class OurDoctors extends Component {
                         </div>
                         <div className="body">
                           <p className="text-xl mb-0">Dr. Alexa Melvin</p>
-                          <span className="text-sm text-grey">Dental</span>
+                          <span className="text-sm text-grey">
+                            <FormattedMessage id="specialty.dental" />
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -241,194 +251,6 @@ class OurDoctors extends Component {
                     <FontAwesomeIcon icon={solid("arrow-right")} />
                   </span>
                 </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="page-section bg-light">
-          <div className="container">
-            <h1 className="text-center wow fadeInUp">Latest News</h1>
-            <div className="row mt-5">
-              <div className="col-lg-4 py-2 wow zoomIn">
-                <div className="card-blog">
-                  <div className="header">
-                    <div className="post-category">
-                      <a href="/">Covid19</a>
-                    </div>
-                    <a href="blog-details.html" className="post-thumb">
-                      <img className="blog-1" alt="" />
-                    </a>
-                  </div>
-                  <div className="body">
-                    <h5 className="post-title">
-                      <a href="blog-details.html">
-                        List of Countries without Coronavirus case
-                      </a>
-                    </h5>
-                    <div className="site-info">
-                      <div className="avatar mr-2">
-                        <div className="avatar-img1"></div>
-                        <span>Roger Adams</span>
-                      </div>
-                      <span>logoTime</span> 1 week ago
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-4 py-2 wow zoomIn">
-                <div className="card-blog">
-                  <div className="header">
-                    <div className="post-category">
-                      <a href="/">Covid19</a>
-                    </div>
-                    <a href="blog-details.html" className="post-thumb">
-                      <img className="blog-2" alt="" />
-                    </a>
-                  </div>
-                  <div className="body">
-                    <h5 className="post-title">
-                      <a href="blog-details.html">
-                        Recovery Room: News beyond the pandemic
-                      </a>
-                    </h5>
-                    <div className="site-info">
-                      <div className="avatar mr-2">
-                        <div className="avatar-img2"></div>
-                        <span>Roger Adams</span>
-                      </div>
-                      <span className="mai-time"></span> 4 weeks ago
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-4 py-2 wow zoomIn">
-                <div className="card-blog">
-                  <div className="header">
-                    <div className="post-category">
-                      <a href="/">Covid19</a>
-                    </div>
-                    <a href="blog-details.html" className="post-thumb">
-                      <img className="blog-3" alt="" />
-                    </a>
-                  </div>
-                  <div className="body">
-                    <h5 className="post-title">
-                      <a href="blog-details.html">
-                        What is the impact of eating too much sugar?
-                      </a>
-                    </h5>
-                    <div className="site-info">
-                      <div className="avatar mr-2">
-                        <div className="avatar-img3"></div>
-                        <span>Diego Simmons</span>
-                      </div>
-                      <span className="mai-time"></span> 2 months ago
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-12 text-center mt-4 wow zoomIn">
-                <a href="blog.html" className="btn btn-primary">
-                  Read More
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="page-section">
-          <div className="container">
-            <h1 className="text-center wow fadeInUp">Make an Appointment</h1>
-
-            <form className="main-form">
-              <div className="row mt-5 ">
-                <div className="col-12 col-sm-6 py-2 wow fadeInLeft">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Full name"
-                  />
-                </div>
-                <div className="col-12 col-sm-6 py-2 wow fadeInRight">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Email address.."
-                  />
-                </div>
-                <div
-                  className="col-12 col-sm-6 py-2 wow fadeInLeft"
-                  data-wow-delay="300ms"
-                >
-                  <input type="date" className="form-control" />
-                </div>
-                <div
-                  className="col-12 col-sm-6 py-2 wow fadeInRight"
-                  data-wow-delay="300ms"
-                >
-                  <select
-                    name="departement"
-                    id="departement"
-                    className="custom-select"
-                  >
-                    <option value="general">General Health</option>
-                    <option value="cardiology">Cardiology</option>
-                    <option value="dental">Dental</option>
-                    <option value="neurology">Neurology</option>
-                    <option value="orthopaedics">Orthopaedics</option>
-                  </select>
-                </div>
-                <div
-                  className="col-12 py-2 wow fadeInUp"
-                  data-wow-delay="300ms"
-                >
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Number.."
-                  />
-                </div>
-                <div
-                  className="col-12 py-2 wow fadeInUp"
-                  data-wow-delay="300ms"
-                >
-                  <textarea
-                    name="message"
-                    id="message"
-                    className="form-control"
-                    rows="6"
-                    placeholder="Enter message.."
-                  ></textarea>
-                </div>
-              </div>
-
-              <button type="submit" className="btn btn-primary mt-3 wow zoomIn">
-                Submit Request
-              </button>
-            </form>
-          </div>
-        </div>
-
-        <div className="page-section banner-home bg-image2">
-          <div className="container py-5 py-lg-0">
-            <div className="row align-items-center">
-              <div className="col-lg-4 wow zoomIn">
-                <div className="img-banner d-none d-lg-block">
-                  <img className="img_mobile_app" alt="" />
-                </div>
-              </div>
-              <div className="col-lg-8 wow fadeInRight">
-                <h1 className="font-weight-normal mb-3">
-                  Get easy access of all features using One Health Application
-                </h1>
-                <a href="/">
-                  <img className="img_google_play" alt="" />
-                </a>
-                <a href="/">
-                  <img className="ml-2 img_app_store" alt="" />
-                </a>
               </div>
             </div>
           </div>

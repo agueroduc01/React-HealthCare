@@ -22,6 +22,24 @@
         "description": "Chào mừng đến với trung tâm chăm sóc sức khỏe Chào mừng đến với trung tâm chăm sóc sức khỏe Chào mừng đến với trung tâm chăm sóc sức khỏe Chào mừng đến với trung tâm chăm sóc sức khỏe",
         "detail-us": "Tìm hiểu thêm về chúng tôi"
     },
+    "our-doctors":{
+        "title": "Các bác sĩ Health-One"
+    },
+    "specialty": {
+        "cardiology": "Khoa tim",
+        "dental": "Khoa răng",
+        "general-health": "Khoa tổng quát",
+        "neurology": "Khoa thần kinh",
+        "orthopaedics": "Khoa chỉnh hình"
+    },
+    "make-appointment":{
+        "title": "Đặt lịch khám bệnh",
+        "full-name": "Họ tên",
+        "email": "Địa chỉ email...",
+        "phone": "Số điện thoại",
+        "message": "Nhập vào tin nội dung ghi chú",
+        "submit": "Gửi yêu cầu"
+    },
     "menu": {
         "admin": {
             "manage-user": "Người dùng",
