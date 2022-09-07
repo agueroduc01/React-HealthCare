@@ -46,6 +46,11 @@ const editUserService = (data, accessToken) => {
 const getAllCodeService = (type) => {
   return axios.get(`/api/v1/allcode?type=${type}`);
 };
+
+const getDoctorHomeService = (limit) => {
+  return axios.get(`/api/v1/doctor-home?limit=${limit}`);
+};
+
 export {
   handleLoginApi,
   handleLogoutApi,
@@ -55,4 +60,5 @@ export {
   deleteUserService,
   editUserService,
   getAllCodeService,
+  getDoctorHomeService,
 };

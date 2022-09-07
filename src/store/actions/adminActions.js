@@ -5,6 +5,7 @@ import {
   getAllUsers,
   deleteUserService,
   editUserService,
+  getDoctorHomeService,
 } from "../../services/userService";
 import { toast } from "react-toastify";
 
@@ -206,4 +207,29 @@ export const fetchAllUsersSuccess = (data) => ({
 
 export const fetchAllUsersFailed = () => ({
   type: actionTypes.FETCH_ALL_USERS_FAILED,
+});
+
+export const fetchOutStandingDoctors = () => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await getDoctorHomeService("");
+      if (res && res.errCode === 0) {
+        dispatch(fetchOutStandingDoctorsSuccess(res.data));
+      } else {
+        dispatch(fetchOutStandingDoctorsFailed());
+      }
+    } catch (err) {
+      console.log("fetchOutStandingDoctorsFailed", err);
+      dispatch(fetchOutStandingDoctorsFailed());
+    }
+  };
+};
+
+export const fetchOutStandingDoctorsSuccess = (data) => ({
+  type: actionTypes.FETCH_OUTSTANDING_DOCTORS_SUCCESS,
+  doctors: data,
+});
+
+export const fetchOutStandingDoctorsFailed = () => ({
+  type: actionTypes.FETCH_OUTSTANDING_DOCTORS_FAILED,
 });

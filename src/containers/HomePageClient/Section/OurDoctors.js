@@ -8,17 +8,31 @@ import {
 } from "@fortawesome/fontawesome-svg-core/import.macro";
 import "./OurDoctors.scss";
 import { FormattedMessage } from "react-intl";
+import * as actions from "../../../store/actions";
+import { LANGUAGES } from "../../../utils";
 
 class OurDoctors extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      slideIndex: 1,
+      slideIndex: 0,
+      arrDoctors: [],
     };
   }
 
   componentDidMount() {
     console.log("mounted", this.state);
+    this.props.loadOutStandingDoctors();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      prevProps.outstandingDoctorsRedux !== this.props.outstandingDoctorsRedux
+    ) {
+      this.setState({
+        arrDoctors: this.props.outstandingDoctorsRedux,
+      });
+    }
   }
 
   handleSlideShow = async (n) => {
@@ -45,7 +59,7 @@ class OurDoctors extends Component {
         if (this.state.slideIndex < 0) {
           this.setState({ slideIndex: 0 });
         }
-        if (this.state.slideIndex === slides.length - 2) {
+        if (this.state.slideIndex === slides.length - 3) {
           this.setState({ slideIndex: -1 });
         }
         i = this.state.slideIndex;
@@ -75,6 +89,8 @@ class OurDoctors extends Component {
   };
 
   render() {
+    let arrDoctors = this.state.arrDoctors;
+    let { language } = this.props;
     return (
       <>
         <div className="page-section">
@@ -93,34 +109,62 @@ class OurDoctors extends Component {
                     width: "1850px",
                   }}
                 >
-                  <div className="owl-item active" style={{ width: "370px" }}>
-                    <div className="item">
-                      <div className="card-doctor">
-                        <div className="header">
-                          <img className="img-doctor1" alt="" />
-                          <div className="meta">
-                            <a href="/">
-                              <span>
-                                <FontAwesomeIcon icon={solid("phone")} />
-                              </span>
-                            </a>
-                            <a href="/">
-                              <span>
-                                <FontAwesomeIcon icon={brands("whatsapp")} />
-                              </span>
-                            </a>
+                  {arrDoctors &&
+                    arrDoctors.length > 0 &&
+                    arrDoctors.map((item, index) => {
+                      let imageBase64 = "";
+                      if (item.image) {
+                        imageBase64 = new Buffer(item.image, "base64").toString(
+                          "binary"
+                        );
+                      }
+                      let nameVi = `${item.positionData.valueVi}, ${item.lastName} ${item.firstName}`;
+                      let nameEn = `${item.positionData.valueEn}, ${item.firstName} ${item.lastName}`;
+                      return (
+                        <div
+                          className={index < 3 ? "owl-item active" : "owl-item"}
+                          style={{ width: "370px" }}
+                          key={item.id}
+                        >
+                          <div className="item">
+                            <div className="card-doctor">
+                              <div className="header">
+                                <img
+                                  className="img-doctor1"
+                                  alt=""
+                                  style={{
+                                    backgroundImage: `url(${imageBase64})`,
+                                  }}
+                                />
+                                <div className="meta">
+                                  <a href="/">
+                                    <span>
+                                      <FontAwesomeIcon icon={solid("phone")} />
+                                    </span>
+                                  </a>
+                                  <a href="/">
+                                    <span>
+                                      <FontAwesomeIcon
+                                        icon={brands("whatsapp")}
+                                      />
+                                    </span>
+                                  </a>
+                                </div>
+                              </div>
+                              <div className="body">
+                                <p className="text-xl mb-0">
+                                  {language === LANGUAGES.VI ? nameVi : nameEn}
+                                </p>
+                                <span className="text-sm text-grey">
+                                  <FormattedMessage id="specialty.cardiology" />
+                                </span>
+                              </div>
+                            </div>
                           </div>
                         </div>
-                        <div className="body">
-                          <p className="text-xl mb-0">Dr. Stein Albert</p>
-                          <span className="text-sm text-grey">
-                            <FormattedMessage id="specialty.cardiology" />
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="owl-item active" style={{ width: "370px" }}>
+                      );
+                    })}
+                  {/* <div className="owl-item active" style={{ width: "370px" }}>
                     <div className="item">
                       <div className="card-doctor">
                         <div className="header">
@@ -227,7 +271,7 @@ class OurDoctors extends Component {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
               <div className="owl-nav">
@@ -263,11 +307,15 @@ class OurDoctors extends Component {
 const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.user.isLoggedIn,
+    outstandingDoctorsRedux: state.admin.outstandingDoctors,
+    language: state.app.language,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    loadOutStandingDoctors: () => dispatch(actions.fetchOutStandingDoctors()),
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(OurDoctors);
