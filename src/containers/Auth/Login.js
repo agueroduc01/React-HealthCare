@@ -51,6 +51,10 @@ class Login extends Component {
       }
       if (data && data.errCode === 0) {
         // working at here
+        data.user = {
+          ...data.user,
+          image: null,
+        };
         this.props.userLoginSuccess(data.user);
         console.log("login success", data);
       }

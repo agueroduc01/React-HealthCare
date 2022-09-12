@@ -60,7 +60,7 @@ class OurDoctors extends Component {
           this.setState({ slideIndex: 0 });
         }
         if (this.state.slideIndex === slides.length - 3) {
-          this.setState({ slideIndex: -1 });
+          this.setState({ slideIndex: slides.length - 4 });
         }
         i = this.state.slideIndex;
         if (i > 0) {
@@ -164,114 +164,6 @@ class OurDoctors extends Component {
                         </div>
                       );
                     })}
-                  {/* <div className="owl-item active" style={{ width: "370px" }}>
-                    <div className="item">
-                      <div className="card-doctor">
-                        <div className="header">
-                          <img className="img-doctor2" alt="" />
-                          <div className="meta">
-                            <a href="/">
-                              <span>
-                                <FontAwesomeIcon icon={solid("phone")} />
-                              </span>
-                            </a>
-                            <a href="/">
-                              <span>
-                                <FontAwesomeIcon icon={brands("whatsapp")} />
-                              </span>
-                            </a>
-                          </div>
-                        </div>
-                        <div className="body">
-                          <p className="text-xl mb-0">Dr. Alexa Melvin</p>
-                          <span className="text-sm text-grey">
-                            <FormattedMessage id="specialty.dental" />
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="owl-item active" style={{ width: "370px" }}>
-                    <div className="item">
-                      <div className="card-doctor">
-                        <div className="header">
-                          <img className="img-doctor3" alt="" />
-                          <div className="meta">
-                            <a href="/">
-                              <span>
-                                <FontAwesomeIcon icon={solid("phone")} />
-                              </span>
-                            </a>
-                            <a href="/">
-                              <span>
-                                <FontAwesomeIcon icon={brands("whatsapp")} />
-                              </span>
-                            </a>
-                          </div>
-                        </div>
-                        <div className="body">
-                          <p className="text-xl mb-0">Dr. Rebecca Steffany</p>
-                          <span className="text-sm text-grey">
-                            <FormattedMessage id="specialty.general-health" />
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="owl-item" style={{ width: "370px" }}>
-                    <div className="item">
-                      <div className="card-doctor">
-                        <div className="header">
-                          <img className="img-doctor3" alt="" />
-                          <div className="meta">
-                            <a href="/">
-                              <span>
-                                <FontAwesomeIcon icon={solid("phone")} />
-                              </span>
-                            </a>
-                            <a href="/">
-                              <span>
-                                <FontAwesomeIcon icon={brands("whatsapp")} />
-                              </span>
-                            </a>
-                          </div>
-                        </div>
-                        <div className="body">
-                          <p className="text-xl mb-0">Dr. Rebecca Steffany</p>
-                          <span className="text-sm text-grey">
-                            <FormattedMessage id="specialty.general-health" />
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="owl-item" style={{ width: "370px" }}>
-                    <div className="item">
-                      <div className="card-doctor">
-                        <div className="header">
-                          <img className="img-doctor3" alt="" />
-                          <div className="meta">
-                            <a href="/">
-                              <span>
-                                <FontAwesomeIcon icon={solid("phone")} />
-                              </span>
-                            </a>
-                            <a href="/">
-                              <span>
-                                <FontAwesomeIcon icon={brands("whatsapp")} />
-                              </span>
-                            </a>
-                          </div>
-                        </div>
-                        <div className="body">
-                          <p className="text-xl mb-0">Dr. Alexa Melvin</p>
-                          <span className="text-sm text-grey">
-                            <FormattedMessage id="specialty.dental" />
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div> */}
                 </div>
               </div>
               <div className="owl-nav">

@@ -30,7 +30,14 @@ class Header extends Component {
         <div className="languages">
           <span className="welcome">
             <FormattedMessage id="home-header.welcome" />,{" "}
-            {userInfo && userInfo.firstName ? userInfo.firstName : ""} !
+            {language === LANGUAGES.EN
+              ? userInfo && userInfo.firstName
+                ? userInfo.firstName
+                : ""
+              : userInfo && userInfo.lastName
+              ? userInfo.lastName
+              : ""}{" "}
+            !
           </span>
           <span
             className={

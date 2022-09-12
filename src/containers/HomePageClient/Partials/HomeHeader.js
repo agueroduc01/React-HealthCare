@@ -24,9 +24,8 @@ class HomeHeader extends Component {
   };
 
   render() {
-    let { language, isLoggedIn } = this.props;
-    let user = this.props.userInfo || "";
-    let accessToken = user.accessToken || "";
+    let { language, isLoggedIn, userInfo } = this.props;
+    let accessToken = userInfo?.accessToken;
     return (
       <>
         {/* <!-- Back to top button --> */}
@@ -175,7 +174,17 @@ class HomeHeader extends Component {
                   {/* Chua bat truong hop cookie het han se update lai component login/register */}
                   {accessToken && isLoggedIn ? (
                     <li className="nav-item">
-                      <a href="/detail-user">Avatar</a>
+                      <a href="/detail-user">Avatar</a>{" "}
+                      <span>
+                        {language === LANGUAGES.EN
+                          ? userInfo && userInfo.firstName
+                            ? userInfo.firstName
+                            : ""
+                          : userInfo && userInfo.lastName
+                          ? userInfo.lastName
+                          : ""}{" "}
+                        !
+                      </span>
                       <div
                         className="btn btn-logout"
                         onClick={() => this.handleLogOut()}

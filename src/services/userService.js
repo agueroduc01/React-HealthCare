@@ -51,6 +51,12 @@ const getDoctorHomeService = (limit) => {
   return axios.get(`/api/v1/doctor-home?limit=${limit}`);
 };
 
+const refreshToken = async () => {
+  return axios.post(`/api/v1/refreshToken`, {
+    withCredentials: true,
+  });
+};
+
 export {
   handleLoginApi,
   handleLogoutApi,
@@ -61,4 +67,5 @@ export {
   editUserService,
   getAllCodeService,
   getDoctorHomeService,
+  refreshToken,
 };
