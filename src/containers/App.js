@@ -14,6 +14,7 @@ import Login from "./Auth/Login";
 import System from "../routes/System";
 import HomePage from "./HomePageClient/HomePage.js";
 import CustomScrollbars from "../components/CustomScrollbars";
+import DetailDoctor from "./Patient/Doctor/DetailDoctor";
 // import ConfirmModal from "../components/ConfirmModal";
 
 class App extends Component {
@@ -53,6 +54,10 @@ class App extends Component {
                     component={userIsAuthenticated(System)}
                   />
                   <Route path={path.HOMEPAGE} exact component={HomePage} />
+                  <Route
+                    path={path.DETAIL_DOCTOR}
+                    component={DetailDoctor}
+                  ></Route>
                 </Switch>
               </CustomScrollbars>
             </div>

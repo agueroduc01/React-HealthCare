@@ -8,8 +8,11 @@ import { store } from "./index";
 
 const instance = axios.create({
   baseURL: process.env.REACT_APP_BACKEND_URL,
+  headers: { "Content-Type": "application/json" },
   withCredentials: true,
 });
+
+// const CancelToken = axios.CancelToken;
 
 const createError = (
   httpStatusCode,
@@ -36,69 +39,65 @@ export const isSuccessStatusCode = (s) => {
   );
 };
 
-instance.interceptors.response.use(
-  async (response) => {
-    // Thrown error for request with OK status code
-    const { data, config } = response;
+instance.interceptors.request.use(
+  async (config) => {
+    // const CancelToken = axios.CancelToken;
     if (
       config.url.indexOf("/login") >= 0 ||
+      // config.url.indexOf("/home") >= 0 ||
+      // config.url.indexOf("/doctor-home?limit=") >= 0 ||
+      store.getState().user.isLoggedIn === false ||
       config.url.indexOf("/refreshToken") >= 0
     ) {
-      // khong can check 2 route nay
-      return response.data;
+      console.log(store.getState());
+      return {
+        ...config,
+        // , data
+      };
     }
-    const { errCode, errMessage, token } = response.data;
-    if (errCode & (errCode === 401)) {
-      if (errMessage && errMessage === "jwt expired") {
-        console.log("truong hop jwt het han", errMessage);
-        let data = jwt_decode(token);
-        try {
-          const { accessToken } = await refreshToken();
-          if (accessToken) {
-            data = {
-              id: data.id,
-              firstName: `${data.name.split(" ")[0]} ${
-                data.name.split(" ")[1]
-              }`,
-              lastName: data.name.split(" ")[2],
-              roleId: data.role,
-              address: data.address,
-              accessToken: accessToken,
-            };
-            response.headers["Authorization"] = `Bearer ${accessToken}`;
-            store.dispatch(userLoginSuccess(data));
-            response.data = data;
-            return response.data;
-          }
-        } catch (error) {
-          console.error("check error axiosJWT system", error);
+    console.log("config.url", config.url);
+    // store.subscribe(async () => {
+    let tokenTest = store.getState().user.userInfo.accessToken;
+    let dataTest = jwt_decode(tokenTest);
+    let timeNow = new Date().getTime();
+    if (dataTest.exp < timeNow / 1000) {
+      try {
+        const { accessToken } = await refreshToken();
+        if (accessToken) {
+          const data = {
+            id: dataTest.id,
+            firstName: `${dataTest.name.split(" ")[0]} ${
+              dataTest.name.split(" ")[1]
+            }`,
+            lastName: dataTest.name.split(" ")[2],
+            roleId: dataTest.role,
+            address: dataTest.address,
+            accessToken: accessToken,
+          };
+          config.headers["Authorization"] = `Bearer ${accessToken}`;
+          await store.dispatch(userLoginSuccess(data));
         }
+      } catch (e) {
+        console.log(e.message);
       }
     }
-    if (
-      data.hasOwnProperty("s") &&
-      !isSuccessStatusCode(data["s"]) &&
-      data.hasOwnProperty("errmsg")
-    ) {
-      return Promise.reject(
-        createError(
-          response.status,
-          data["s"],
-          data["errmsg"],
-          null,
-          data["errcode"] ? data["errcode"] : ""
-        )
-      );
-    }
+    // });
+    return {
+      ...config,
+    };
+  },
+  (err) => {
+    console.error(err);
+    return Promise.reject(err);
+  }
+);
 
-    // Return direct data to callback
-    if (data.hasOwnProperty("s") && data.hasOwnProperty("d")) {
-      return data["d"];
-    }
-    // Handle special case
-    if (data.hasOwnProperty("s") && _.keys(data).length === 1) {
-      return null;
-    }
+instance.interceptors.response.use(
+  async (response) => {
+    console.log("response from axios", response);
+    response.data = {
+      ...response.data,
+    };
     return response.data;
   },
   (error) => {

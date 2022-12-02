@@ -57,6 +57,18 @@ const refreshToken = async () => {
   });
 };
 
+const getAllDoctors = () => {
+  return axios.get("/api/v1/get-all-doctors");
+};
+
+const postDetailDoctor = (data) => {
+  return axios.post("/api/v1/save-infor-doctors", data);
+};
+
+const getDetailInforDoctor = (doctorId) => {
+  return axios.get(`/api/v1/get-detail-doctor?id=${doctorId}`);
+};
+
 export {
   handleLoginApi,
   handleLogoutApi,
@@ -68,4 +80,7 @@ export {
   getAllCodeService,
   getDoctorHomeService,
   refreshToken,
+  getAllDoctors,
+  postDetailDoctor,
+  getDetailInforDoctor,
 };

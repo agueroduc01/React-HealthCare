@@ -69,5 +69,8 @@
         "image": "Ảnh",
         "save": "Lưu người dùng",
         "edit": "Lưu thay đổi"
+    },
+    "manage-schedule": {
+        "title": "Quản lý kế hoạch khám bệnh của bác sĩ"
     }
 }

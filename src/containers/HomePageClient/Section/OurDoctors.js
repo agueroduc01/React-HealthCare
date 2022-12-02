@@ -10,6 +10,8 @@ import "./OurDoctors.scss";
 import { FormattedMessage } from "react-intl";
 import * as actions from "../../../store/actions";
 import { LANGUAGES } from "../../../utils";
+// bọc vào class component để chuyển trang
+import { withRouter } from "react-router";
 
 class OurDoctors extends Component {
   constructor(props) {
@@ -88,9 +90,17 @@ class OurDoctors extends Component {
     );
   };
 
+  handleViewDetailDoctor = (doctor) => {
+    console.log("view info doctor", doctor);
+    if (this.props.history) {
+      this.props.history.push(`/detail-doctor/${doctor.id}`);
+    }
+  };
+
   render() {
     let arrDoctors = this.state.arrDoctors;
     let { language } = this.props;
+    console.log("arrDoctors", arrDoctors);
     return (
       <>
         <div className="page-section">
@@ -125,6 +135,7 @@ class OurDoctors extends Component {
                           className={index < 3 ? "owl-item active" : "owl-item"}
                           style={{ width: "370px" }}
                           key={item.id}
+                          onClick={() => this.handleViewDetailDoctor(item)}
                         >
                           <div className="item">
                             <div className="card-doctor">
@@ -210,4 +221,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(OurDoctors);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(OurDoctors)
+);
