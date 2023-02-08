@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-export default {
+let configApp = {
   api: {
     API_BASE_URL: process.env.REACT_APP_BACKEND_URL,
     ROUTER_BASE_NAME: null,
@@ -14,3 +14,5 @@ export default {
     ROUTER_BASE_NAME: null,
   },
 };
+
+export default configApp;
