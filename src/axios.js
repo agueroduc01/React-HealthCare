@@ -1,5 +1,5 @@
 import axios from "axios";
-import _ from "lodash";
+// import _ from "lodash";
 import { refreshToken } from "./services/userService";
 import jwt_decode from "jwt-decode";
 import { userLoginSuccess } from "./store/actions";
@@ -11,6 +11,7 @@ const instance = axios.create({
   headers: { "Content-Type": "application/json" },
   withCredentials: true,
   proxy: process.env.REACT_APP_BACKEND_URL,
+  origin: process.env.REACT_APP_BACKEND_URL,
 });
 
 // const CancelToken = axios.CancelToken;
