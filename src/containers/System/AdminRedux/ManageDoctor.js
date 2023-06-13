@@ -1,16 +1,16 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import "./ManageDoctor.scss";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import './ManageDoctor.scss';
 // import { FormattedMessage } from "react-intl";
-import * as actions from "../../../store/actions";
+import * as actions from '../../../store/actions';
 
-import MarkdownIt from "markdown-it";
-import MdEditor from "react-markdown-editor-lite";
+import MarkdownIt from 'markdown-it';
+import MdEditor from 'react-markdown-editor-lite';
 // import style manually
-import "react-markdown-editor-lite/lib/index.css";
-import Select from "react-select";
-import { LANGUAGES } from "../../../utils";
-import { getDetailInforDoctor } from "../../../services/userService";
+import 'react-markdown-editor-lite/lib/index.css';
+import Select from 'react-select';
+import { LANGUAGES } from '../../../utils';
+import { getDetailInforDoctor } from '../../../services/userService';
 
 // Initialize a markdown parser
 const mdParser = new MarkdownIt(/* Markdown-it options */);
@@ -19,11 +19,12 @@ class ManageDoctor extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      contentHTML: "",
-      contentMarkdown: "",
-      selectedDoctor: "",
-      description: "",
+      contentHTML: '',
+      contentMarkdown: '',
+      selectedDoctor: '',
+      description: '',
       listDoctors: [],
+      isCreated: false,
     };
   }
   componentDidMount() {
@@ -77,23 +78,25 @@ class ManageDoctor extends Component {
       if (res.data.Markdown) {
         let contentHTML = res.data.Markdown.contentHTML
           ? res.data.Markdown.contentHTML
-          : "";
+          : '';
         let contentMarkdown = res.data.Markdown.contentMarkdown
           ? res.data.Markdown.contentMarkdown
-          : "";
+          : '';
         let description = res.data.Markdown.description
           ? res.data.Markdown.description
-          : "";
+          : '';
         this.setState({
           contentHTML,
           contentMarkdown,
           description,
+          isCreated: true,
         });
       } else {
         this.setState({
-          contentHTML: "",
-          contentMarkdown: "",
-          description: "",
+          contentHTML: '',
+          contentMarkdown: '',
+          description: '',
+          isCreated: false,
         });
       }
     }
@@ -113,7 +116,6 @@ class ManageDoctor extends Component {
   };
 
   render() {
-    console.log("check from: ", this.state);
     return (
       <div className="manage-doctor-container">
         <div className="manage-doctor-title">Thêm thông tin bác sĩ</div>
@@ -138,7 +140,7 @@ class ManageDoctor extends Component {
         </div>
         <div className="manage-doctor-editor">
           <MdEditor
-            style={{ height: "500px" }}
+            style={{ height: '500px' }}
             renderHTML={(text) => mdParser.render(text)}
             onChange={this.handleEditorChange}
             value={this.state.contentMarkdown}
@@ -146,9 +148,13 @@ class ManageDoctor extends Component {
         </div>
         <button
           onClick={() => this.handleSave()}
-          className="manage-doctor-btn-save"
+          className={
+            this.state.isCreated
+              ? 'manage-doctor-btn-edit'
+              : 'manage-doctor-btn-save'
+          }
         >
-          Lưu thông tin bác sĩ
+          {this.state.isCreated ? 'Sua thong tin' : 'Lưu thông tin bác sĩ'}
         </button>
       </div>
     );

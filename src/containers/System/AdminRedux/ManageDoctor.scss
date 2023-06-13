@@ -7,7 +7,18 @@
     font-weight: 600;
     margin: 14px 0;
   }
-  .manage-doctor-editor {
+  .manage-doctor-btn-edit {
+    margin: 20px 0;
+    border-radius: 4px;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    background-color: rgb(194, 248, 44);
+    padding: 6px;
+
+    &:hover {
+      opacity: 0.8;
+    }
   }
   .manage-doctor-btn-save {
     margin: 20px 0;

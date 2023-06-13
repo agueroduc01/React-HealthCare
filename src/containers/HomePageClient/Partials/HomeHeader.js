@@ -1,16 +1,17 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import "./HomeHeader.scss";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import './HomeHeader.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   solid,
   // regular,
   brands,
-} from "@fortawesome/fontawesome-svg-core/import.macro";
-import { FormattedMessage } from "react-intl";
-import { LANGUAGES } from "../../../utils";
-import { changeLanguageApp, processLogout } from "../../../store/actions";
-import { handleLogoutApi } from "../../../services/userService";
+} from '@fortawesome/fontawesome-svg-core/import.macro';
+import { FormattedMessage } from 'react-intl';
+import { LANGUAGES } from '../../../utils';
+import { changeLanguageApp, processLogout } from '../../../store/actions';
+import { handleLogoutApi } from '../../../services/userService';
+import { withRouter } from 'react-router';
 
 class HomeHeader extends Component {
   // dang bi bug chuyen huong tu trang login sang home chua update component login/register
@@ -21,6 +22,36 @@ class HomeHeader extends Component {
   handleLogOut = () => {
     this.props.processLogout();
     handleLogoutApi(this.props.userInfo.accessToken);
+  };
+
+  goToHome = () => {
+    if (this.props.history) {
+      this.props.history.push(`/home`);
+    }
+  };
+
+  goToAboutPage = () => {
+    if (this.props.history) {
+      this.props.history.push(`/about`);
+    }
+  };
+
+  goToBlogPage = () => {
+    if (this.props.history) {
+      this.props.history.push(`/blog`);
+    }
+  };
+
+  goToContactPage = () => {
+    if (this.props.history) {
+      this.props.history.push(`/contact`);
+    }
+  };
+
+  goToDoctorsPage = () => {
+    if (this.props.history) {
+      this.props.history.push(`/doctors`);
+    }
   };
 
   render() {
@@ -36,19 +67,19 @@ class HomeHeader extends Component {
               <div className="row">
                 <div className="col-sm-8 text-sm">
                   <div className="site-info">
-                    <a href="/">
+                    <p onClick={this.goToHome}>
                       <span className="text-primary">
-                        <FontAwesomeIcon icon={solid("phone")} />
-                      </span>{" "}
+                        <FontAwesomeIcon icon={solid('phone')} />
+                      </span>{' '}
                       +00 123 4455 6666
-                    </a>
+                    </p>
                     <span className="divider">|</span>
-                    <a href="/">
+                    <p onClick={this.goToHome}>
                       <span className="text-primary">
-                        <FontAwesomeIcon icon={solid("envelope")} />
-                      </span>{" "}
+                        <FontAwesomeIcon icon={solid('envelope')} />
+                      </span>{' '}
                       agueroduc01@gmail.com
-                    </a>
+                    </p>
                   </div>
                 </div>
                 <div className="col-sm-4 text-right text-sm right-content">
@@ -56,8 +87,8 @@ class HomeHeader extends Component {
                     <div
                       className={
                         language === LANGUAGES.VI
-                          ? "language-vi active"
-                          : "language-vi"
+                          ? 'language-vi active'
+                          : 'language-vi'
                       }
                     >
                       <span onClick={() => this.changeLanguage(LANGUAGES.VI)}>
@@ -67,8 +98,8 @@ class HomeHeader extends Component {
                     <div
                       className={
                         language === LANGUAGES.EN
-                          ? "language-en active"
-                          : "language-en"
+                          ? 'language-en active'
+                          : 'language-en'
                       }
                     >
                       <span onClick={() => this.changeLanguage(LANGUAGES.EN)}>
@@ -77,26 +108,26 @@ class HomeHeader extends Component {
                     </div>
                   </div>
                   <div className="social-mini-button">
-                    <a href="/">
+                    <p>
                       <span>
-                        <FontAwesomeIcon icon={brands("facebook-f")} />
+                        <FontAwesomeIcon icon={brands('facebook-f')} />
                       </span>
-                    </a>
-                    <a href="/">
+                    </p>
+                    <p>
                       <span>
-                        <FontAwesomeIcon icon={brands("twitter")} />
+                        <FontAwesomeIcon icon={brands('twitter')} />
                       </span>
-                    </a>
-                    <a href="/">
+                    </p>
+                    <p>
                       <span>
-                        <FontAwesomeIcon icon={brands("dribbble")} />
+                        <FontAwesomeIcon icon={brands('dribbble')} />
                       </span>
-                    </a>
-                    <a href="/">
+                    </p>
+                    <p>
                       <span>
-                        <FontAwesomeIcon icon={brands("instagram")} />
+                        <FontAwesomeIcon icon={brands('instagram')} />
                       </span>
-                    </a>
+                    </p>
                   </div>
                 </div>
               </div>
@@ -105,16 +136,16 @@ class HomeHeader extends Component {
 
           <nav className="navbar navbar-expand-lg navbar-light shadow-sm">
             <div className="container">
-              <a className="navbar-brand" href="/">
+              <p className="navbar-brand" onClick={this.goToHome}>
                 <span className="text-primary">One</span>-Health
-              </a>
+              </p>
 
               <form action="">
                 <div className="input-group input-navbar">
                   <div className="input-group-prepend">
                     <span className="input-group-text" id="icon-addon1">
                       <span className="">
-                        <FontAwesomeIcon icon={solid("magnifying-glass")} />
+                        <FontAwesomeIcon icon={solid('magnifying-glass')} />
                       </span>
                     </span>
                   </div>
@@ -147,42 +178,42 @@ class HomeHeader extends Component {
               <div className="collapse navbar-collapse" id="navbarSupport">
                 <ul className="navbar-nav ml-auto">
                   <li className="nav-item active">
-                    <a className="nav-link" href="/home">
+                    <p className="nav-link" onClick={this.goToHome}>
                       <FormattedMessage id="home-header.home" />
-                    </a>
+                    </p>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="/about">
+                    <p className="nav-link" onClick={this.goToAboutPage}>
                       <FormattedMessage id="home-header.about-us" />
-                    </a>
+                    </p>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="/doctors">
+                    <p className="nav-link" onClick={this.goToDoctorsPage}>
                       <FormattedMessage id="home-header.doctors" />
-                    </a>
+                    </p>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="/blog">
+                    <p className="nav-link" onClick={this.goToBlogPage}>
                       <FormattedMessage id="home-header.news" />
-                    </a>
+                    </p>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="/contact">
+                    <p className="nav-link" onClick={this.goToContactPage}>
                       <FormattedMessage id="home-header.contact" />
-                    </a>
+                    </p>
                   </li>
                   {/* Chua bat truong hop cookie het han se update lai component login/register */}
                   {accessToken && isLoggedIn ? (
                     <li className="nav-item">
-                      <a href="/detail-user">Avatar</a>{" "}
+                      <span>Avatar</span>{' '}
                       <span>
                         {language === LANGUAGES.EN
                           ? userInfo && userInfo.firstName
                             ? userInfo.firstName
-                            : ""
+                            : ''
                           : userInfo && userInfo.lastName
                           ? userInfo.lastName
-                          : ""}{" "}
+                          : ''}{' '}
                         !
                       </span>
                       <div
@@ -195,11 +226,14 @@ class HomeHeader extends Component {
                     </li>
                   ) : (
                     <li className="nav-item">
-                      <a className="btn btn-primary ml-lg-3" href="/login">
+                      <p
+                        className="btn btn-primary ml-lg-3"
+                        onClick={this.goToHome}
+                      >
                         <span>
                           <FormattedMessage id="home-header.login-register" />
                         </span>
-                      </a>
+                      </p>
                     </li>
                   )}
                 </ul>
@@ -227,4 +261,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeHeader);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(HomeHeader)
+);

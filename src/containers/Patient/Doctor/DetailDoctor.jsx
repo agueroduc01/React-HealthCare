@@ -1,9 +1,9 @@
-import React from "react";
-import { connect } from "react-redux";
-import HomeHeader from "../../HomePageClient/Partials/HomeHeader";
-import "./DetailDoctor.scss";
-import { getDetailInforDoctor } from "../../../services/userService";
-import { LANGUAGES } from "../../../utils";
+import React from 'react';
+import { connect } from 'react-redux';
+import HomeHeader from '../../HomePageClient/Partials/HomeHeader';
+import './DetailDoctor.scss';
+import { getDetailInforDoctor } from '../../../services/userService';
+import { LANGUAGES } from '../../../utils';
 
 class DetailDoctor extends React.Component {
   constructor(props) {
@@ -32,11 +32,10 @@ class DetailDoctor extends React.Component {
   componentDidUpdate(prevProps, prevState, snapshot) {}
 
   render() {
-    console.log("check detail doctor", this.state);
     let { language } = this.props;
     let { detailDoctor } = this.state;
-    let nameVi = "",
-      nameEn = "";
+    let nameVi = '',
+      nameEn = '';
     if (detailDoctor && detailDoctor.positionData) {
       nameVi = `${detailDoctor.positionData.valueVi}, ${detailDoctor.lastName} ${detailDoctor.firstName}`;
       nameEn = `${detailDoctor.positionData.valueEn}, ${detailDoctor.firstName} ${detailDoctor.lastName}`;
@@ -50,7 +49,7 @@ class DetailDoctor extends React.Component {
               className="content-left"
               style={{
                 backgroundImage: `url(${
-                  detailDoctor.image ? detailDoctor.image : ""
+                  detailDoctor.image ? detailDoctor.image : ''
                 })`,
               }}
             ></div>

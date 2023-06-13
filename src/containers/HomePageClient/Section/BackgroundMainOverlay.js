@@ -1,8 +1,15 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { FormattedMessage } from "react-intl";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { FormattedMessage } from 'react-intl';
+import { withRouter } from 'react-router';
 
 class BackgroundMainOverlay extends Component {
+  goToAboutPage = () => {
+    if (this.props.history) {
+      this.props.history.push(`/about`);
+    }
+  };
+
   render() {
     return (
       <>
@@ -10,7 +17,7 @@ class BackgroundMainOverlay extends Component {
           <div className="hero-section">
             <div
               className="container text-center wow zoomIn"
-              style={{ visibility: "visible", animationName: "zoomIn" }}
+              style={{ visibility: 'visible', animationName: 'zoomIn' }}
             >
               <span className="subhead">
                 <FormattedMessage id="banner.title1" />
@@ -18,11 +25,11 @@ class BackgroundMainOverlay extends Component {
               <h1 className="display-4">
                 <FormattedMessage id="banner.title2" />
               </h1>
-              <a href="/" className="btn btn-primary">
+              <p className="btn btn-primary" onClick={this.goToAboutPage}>
                 <span>
                   <FormattedMessage id="banner.consult" />
                 </span>
-              </a>
+              </p>
             </div>
           </div>
         </div>
@@ -39,7 +46,6 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(BackgroundMainOverlay);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(BackgroundMainOverlay)
+);

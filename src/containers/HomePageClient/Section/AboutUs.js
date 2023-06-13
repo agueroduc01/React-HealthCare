@@ -1,14 +1,21 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   solid,
   //   regular,
   //   brands,
-} from "@fortawesome/fontawesome-svg-core/import.macro";
-import { FormattedMessage } from "react-intl";
+} from '@fortawesome/fontawesome-svg-core/import.macro';
+import { FormattedMessage } from 'react-intl';
+import { withRouter } from 'react-router';
 
 class AboutUs extends Component {
+  goToAboutPage = () => {
+    if (this.props.history) {
+      this.props.history.push(`/about`);
+    }
+  };
+
   render() {
     return (
       <>
@@ -20,7 +27,7 @@ class AboutUs extends Component {
                   <div className="card-service wow fadeInUp">
                     <div className="circle-shape bg-secondary text-white">
                       <span>
-                        <FontAwesomeIcon icon={solid("comments")} />
+                        <FontAwesomeIcon icon={solid('comments')} />
                       </span>
                     </div>
                     <p>
@@ -32,7 +39,7 @@ class AboutUs extends Component {
                   <div className="card-service wow fadeInUp">
                     <div className="circle-shape bg-primary text-white">
                       <span>
-                        <FontAwesomeIcon icon={solid("shield")} />
+                        <FontAwesomeIcon icon={solid('shield')} />
                       </span>
                     </div>
                     <p>
@@ -44,7 +51,7 @@ class AboutUs extends Component {
                   <div className="card-service wow fadeInUp">
                     <div className="circle-shape bg-info text-white">
                       <span>
-                        <FontAwesomeIcon icon={solid("basket-shopping")} />
+                        <FontAwesomeIcon icon={solid('basket-shopping')} />
                       </span>
                     </div>
                     <p>
@@ -60,7 +67,7 @@ class AboutUs extends Component {
             <div className="container">
               <div className="row align-items-center">
                 <div className="col-lg-6 py-3">
-                  <div style={{ width: "400px" }}>
+                  <div style={{ width: '400px' }}>
                     <h1>
                       <FormattedMessage id="about-us.title" />
                     </h1>
@@ -68,11 +75,11 @@ class AboutUs extends Component {
                   <p className="text-grey mb-4">
                     <FormattedMessage id="about-us.description" />
                   </p>
-                  <a href="about.html" className="btn btn-primary">
+                  <p className="btn btn-primary" onClick={this.goToAboutPage}>
                     <span>
                       <FormattedMessage id="about-us.detail-us" />
                     </span>
-                  </a>
+                  </p>
                 </div>
                 <div className="col-lg-6">
                   <div className="img-place custom-img-1"></div>
@@ -94,4 +101,6 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AboutUs);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(AboutUs)
+);

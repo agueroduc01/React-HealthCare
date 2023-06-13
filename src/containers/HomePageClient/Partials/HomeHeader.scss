@@ -26,7 +26,7 @@
   box-sizing: border-box;
 }
 body {
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   line-height: 1.5;
   color: rgb(52, 53, 49);
 }
@@ -50,12 +50,14 @@ header {
         min-height: 36px;
 
         .site-info {
-          a {
+          p {
             display: inline-flex;
             align-items: center;
             color: #a1aaa7;
             background-color: transparent;
-            text-decoration: none;
+            cursor: pointer;
+            align-items: center;
+            margin: 0;
             span {
               font-size: 16px;
               margin-right: 6px;
@@ -104,10 +106,12 @@ header {
         }
         .social-mini-button {
           font-size: 1.2rem;
-          a {
+          p {
             display: inline-block;
             padding: 4px 8px;
             color: #a1aaa7;
+            margin: 0;
+            cursor: pointer;
             &:hover {
               text-decoration: none;
               color: #282f2d;
@@ -135,6 +139,9 @@ header {
         font-size: 1.25rem;
         line-height: inherit;
         white-space: nowrap;
+        cursor: pointer;
+        margin: 0;
+        margin-right: 10px;
       }
       form {
         .input-navbar {
@@ -162,8 +169,8 @@ header {
               width: 1.5em;
               height: 1.5em;
               vertical-align: middle;
-              content: "";
-              background: url("../../../assets/img/bg-doctor.png") center center
+              content: '';
+              background: url('../../../assets/img/bg-doctor.png') center center
                 no-repeat;
             }
           }
@@ -176,7 +183,9 @@ header {
       .navbar-nav {
         margin-left: auto;
         .nav-link {
+          cursor: pointer;
           padding: 4px 16px 0;
+          font-size: 1.1rem;
         }
         .btn {
           font-size: 14px;
@@ -231,19 +240,19 @@ header {
   }
 }
 .bg-image1 {
-  background-image: url("../../../assets/img/bg_image_1.jpg");
+  background-image: url('../../../assets/img/bg_image_1.jpg');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
 }
 .bg-image2 {
-  background-image: url("../../../assets/img/banner-pattern.png");
+  background-image: url('../../../assets/img/banner-pattern.png');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
 }
 .overlay-dark::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0px;
   left: 0px;
@@ -313,7 +322,7 @@ header {
     text-align: center;
     margin: 0px auto;
     overflow: hidden;
-    background: url("../../../assets/img/bg-doctor.png") center center no-repeat;
+    background: url('../../../assets/img/bg-doctor.png') center center no-repeat;
   }
 }
 
@@ -332,7 +341,7 @@ header {
   visibility: visible;
 }
 .back-to-top::after {
-  content: "";
+  content: '';
   position: absolute;
   top: 50%;
   left: 0px;

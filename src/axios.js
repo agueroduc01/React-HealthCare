@@ -1,14 +1,14 @@
-import axios from "axios";
+import axios from 'axios';
 // import _ from "lodash";
-import { refreshToken } from "./services/userService";
-import jwt_decode from "jwt-decode";
-import { userLoginSuccess } from "./store/actions";
+import { refreshToken } from './services/userService';
+import jwt_decode from 'jwt-decode';
+import { userLoginSuccess } from './store/actions';
 // nhờ store này mới dispatch được action userLoginSuccess để update userInfo
-import { store } from "./index";
+import { store } from './index';
 
 const instance = axios.create({
   baseURL: process.env.REACT_APP_BACKEND_URL,
-  headers: { "Content-Type": "application/json" },
+  headers: { 'Content-Type': 'application/json' },
   withCredentials: true,
   proxy: process.env.REACT_APP_BACKEND_URL,
   origin: process.env.REACT_APP_BACKEND_URL,
@@ -21,14 +21,14 @@ const createError = (
   statusCode,
   errorMessage,
   problems,
-  errorCode = ""
+  errorCode = ''
 ) => {
   const error = new Error();
   error.httpStatusCode = httpStatusCode;
   error.statusCode = statusCode;
   error.errorMessage = errorMessage;
   error.problems = problems;
-  error.errorCode = errorCode + "";
+  error.errorCode = errorCode + '';
   return error;
 };
 
@@ -36,8 +36,8 @@ export const isSuccessStatusCode = (s) => {
   // May be string or number
   const statusType = typeof s;
   return (
-    (statusType === "number" && s === 0) ||
-    (statusType === "string" && s.toUpperCase() === "OK")
+    (statusType === 'number' && s === 0) ||
+    (statusType === 'string' && s.toUpperCase() === 'OK')
   );
 };
 
@@ -45,38 +45,36 @@ instance.interceptors.request.use(
   async (config) => {
     // const CancelToken = axios.CancelToken;
     if (
-      config.url.indexOf("/login") >= 0 ||
+      config.url.indexOf('/login') >= 0 ||
       // config.url.indexOf("/home") >= 0 ||
       // config.url.indexOf("/doctor-home?limit=") >= 0 ||
       store.getState().user.isLoggedIn === false ||
-      config.url.indexOf("/refreshToken") >= 0
+      config.url.indexOf('/refreshToken') >= 0
     ) {
-      console.log(store.getState());
       return {
         ...config,
         // , data
       };
     }
-    console.log("config.url", config.url);
     // store.subscribe(async () => {
-    let tokenTest = store.getState().user.userInfo.accessToken;
+    let tokenTest = await store.getState().user.userInfo.accessToken;
     let dataTest = jwt_decode(tokenTest);
     let timeNow = new Date().getTime();
-    if (dataTest.exp < timeNow / 1000) {
+    if (dataTest.exp < timeNow.toString().substring(0, 10)) {
       try {
         const { accessToken } = await refreshToken();
         if (accessToken) {
           const data = {
             id: dataTest.id,
-            firstName: `${dataTest.name.split(" ")[0]} ${
-              dataTest.name.split(" ")[1]
+            firstName: `${dataTest.name.split(' ')[0]} ${
+              dataTest.name.split(' ')[1]
             }`,
-            lastName: dataTest.name.split(" ")[2],
+            lastName: dataTest.name.split(' ')[2],
             roleId: dataTest.role,
             address: dataTest.address,
             accessToken: accessToken,
           };
-          config.headers["Authorization"] = `Bearer ${accessToken}`;
+          config.headers['authorization'] = `Bearer ${accessToken}`;
           await store.dispatch(userLoginSuccess(data));
         }
       } catch (e) {
@@ -96,7 +94,6 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   async (response) => {
-    console.log("response from axios", response);
     response.data = {
       ...response.data,
     };
@@ -110,19 +107,19 @@ instance.interceptors.response.use(
 
     const { data } = response;
 
-    if (data.hasOwnProperty("s") && data.hasOwnProperty("errmsg")) {
+    if (data.hasOwnProperty('s') && data.hasOwnProperty('errmsg')) {
       return Promise.reject(
-        createError(response.status, data["s"], data["errmsg"])
+        createError(response.status, data['s'], data['errmsg'])
       );
     }
 
-    if (data.hasOwnProperty("code") && data.hasOwnProperty("message")) {
+    if (data.hasOwnProperty('code') && data.hasOwnProperty('message')) {
       return Promise.reject(
         createError(
           response.status,
-          data["code"],
-          data["message"],
-          data["problems"]
+          data['code'],
+          data['message'],
+          data['problems']
         )
       );
     }
